@@ -1,6 +1,6 @@
 
 server:
-  port: 80
+  port: 9090
 spring:
   mvc:
     view:
@@ -14,10 +14,10 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url:
+    url: jdbc:postgresql://101.101.208.101:5432/1907_db
     platform: postgres
-    username:
-    password:
+    username: postgres
+    password: schana1221
 
 # log
 logging:
