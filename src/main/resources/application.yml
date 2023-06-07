@@ -1,0 +1,46 @@
+
+server:
+  port: 80
+spring:
+  mvc:
+    view:
+      suffix: .html
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    static-path-pattern: /static/
+  web:
+    resources:
+      static-locations: META-INF:/resources, classpath:/resources, classpath:/static, classpath:/static/dist
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url:
+    platform: postgres
+    username:
+    password:
+
+# log
+logging:
+  level:
+    root: info
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor: trace
+
+
+#api - swagger
+
+
+# jpa properties
+jpa:
+  hibernate:
+    ddl-auto: validate # When you launch the application for the first time - switch "none" at "create"
+    format_sql: true
+  show-sql: true
+  database: postgresql
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+  open-in-view: false
+  generate-ddl: true
+
