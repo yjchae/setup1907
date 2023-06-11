@@ -1,8 +1,6 @@
 package com.schana.entity;
 
-import com.schana.dto.RoomDto;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,18 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name ="tb_room")
-public class RoomEntity {
+@Table(name ="tb_room_master")
+public class RoomMasterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seqno;
-    private Integer roomnum;
-    private String date;
-    private String peoplekey;
     private String dormitory;
-    private String start;
-    private String end;
-    private String name;
+    private Integer room_num;
+    private Integer max_people;
+    private String type;
+    private String status;
 
 //    @Builder()
 //    public RoomEntity(RoomDto roomDto){

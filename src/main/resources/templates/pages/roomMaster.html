@@ -23,23 +23,22 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>-</th>
                         <th>idx</th>
+                        <th>기숙사구분</th>
                         <th>방번호</th>
-                        <th>날짜</th>
-                        <th>사람</th>
-                        <th>인원수</th>
+                        <th>최대수용인원</th>
+                        <th>구분</th>
+                        <th>배정가능여부</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="room : ${roomlist}">
-                        <td><input type="checkbox" th:value="${room.seqno}"></td>
                         <td th:text="${room.seqno}"></td>
                         <td th:text="${room.dormitory}"></td>
-                        <td th:text="${room.roomnum}"></td>
-                        <td th:text="${room.date}"></td>
-                        <td th:text="${room.peoplekey}"></td>
+                        <td th:text="${room.room_num}"></td>
                         <td th:text="${room.max_people}"></td>
+                        <td th:text="${room.type}"></td>
+                        <td th:text="${room.status}"></td>
                     </tr>
                     </tbody>
                 </table>

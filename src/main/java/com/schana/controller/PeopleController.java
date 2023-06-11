@@ -1,7 +1,8 @@
 package com.schana.controller;
 
 import com.schana.entity.PeopleEntity;
-import com.schana.entity.RoomEntity;
+import com.schana.entity.PeopleViewEntity;
+import com.schana.entity.RoomMasterEntity;
 import com.schana.service.PeopleService;
 import com.schana.service.RoomService;
 import org.slf4j.Logger;
@@ -22,17 +23,38 @@ public class PeopleController {
 
     @Autowired
     private PeopleService peopleService;
+    @Autowired
+    private RoomService roomService;
 
     @GetMapping("/listall")
     public String getPeopleInfo(Model model){
         //등록된 방정보
-        List<PeopleEntity> List = peopleService.getRoomList();
+        List<PeopleEntity> List = peopleService.getPeopleList();
 
         HashMap<String,List<PeopleEntity>> resultMap = new HashMap<>();
         resultMap.put("list",List);
         model.addAllAttributes(resultMap);
 
         return "pages/people";
+    }
+
+    @GetMapping("/listview")
+    public String getPeopleViewInfo(Model model){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        //등록된 방정보
+        List<PeopleViewEntity> List = peopleService.getPeopleViewList();
+        resultMap.put("list",List);
+        model.addAllAttributes(resultMap);
+
+        PeopleViewEntity peopleViewEntity = new PeopleViewEntity();
+        model.addAttribute("peopleViewEntity",peopleViewEntity);
+
+
+//        List<RoomMasterEntity> roomlist = roomService.getRoomMasterList("Y");
+//        resultMap.put("roomlist",roomlist);
+//        model.addAllAttributes(resultMap);
+
+        return "pages/peopleview";
     }
 
 }

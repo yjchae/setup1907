@@ -4,6 +4,7 @@ package com.schana.service;
 import com.schana.dao.RoomDao;
 import com.schana.dto.RoomDto;
 import com.schana.entity.RoomEntity;
+import com.schana.entity.RoomMasterEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,17 @@ public class RoomService {
 
         return roomDao.getRoomList(roomnum);
     }
+
+    public List<RoomMasterEntity> getRoomMasterList(String roomstatus) {
+        List<RoomMasterEntity> roomlist = new ArrayList<>();
+
+        if(roomstatus.isEmpty()){
+            roomlist = roomDao.getRoomMasterList();
+        }else{
+            roomlist = roomDao.getRoom(roomstatus);
+        }
+
+        return roomlist;
+    }
+
 }

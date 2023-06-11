@@ -21,16 +21,16 @@ spring:
 
 # log
 logging:
+  file:
+    path: /home/schana/logs
   level:
     root: info
+
     org:
       hibernate:
         sql: debug
         type:
           descriptor: trace
-
-
-#api - swagger
 
 
 # jpa properties

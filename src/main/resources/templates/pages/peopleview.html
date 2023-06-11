@@ -10,10 +10,11 @@
 
     </ul>
     <!-- End of Sidebar -->
-
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+<!--    <form role="form" th:action="@{/room/selectRoomPop}" th:object="${PeopleEntity}" action="#" id ="selectForm" method="post">-->
 
+
+    <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div class="container-fluid">
             <div class="card-header py-3">
@@ -23,6 +24,16 @@
                 <table class="table table-bordered text-nowrap" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
+                        <th>-</th>
+                        <th>
+<!--                            <div  th:replace="fragment/selectRoom ::selroomFragment"></div>-->
+                            <a data-toggle="modal" href="#selroomModal" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                            <span class="text">다중선택</span>
+                            </a>
+                        </th>
                         <th>idx</th>
                         <th>신청인</th>
                         <th>이름</th>
@@ -30,32 +41,27 @@
                         <th>성별</th>
                         <th>나이</th>
                         <th>소속</th>
-                        <th>1차금액</th>
-                        <th>2차금액</th>
                         <th>입금금액</th>
                         <th>입금날짜</th>
                         <th>입금상태</th>
                         <th>방배정</th>
-                        <th>등록날짜</th>
-                        <th>대표인</th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
-                        <th>자차</th>
-                        <th>대중교통</th>
-                        <th>도보 및 자전거</th>
-                        <th>알게된경로</th>
-                        <th>목회자</th>
-                        <th>탈북민</th>
-                        <th>평신도</th>
+                        <th>구분</th>
                         <th>전참여부</th>
+                        <th>참석일</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="people : ${list}">
+                        <td><input type="checkbox" th:value="${people.seqno}"></td>
+                        <td>
+                                <a id="selectRoom" class="btn btn-success btn-icon-split" th:onclick="userDetail([[${people.seqno}]])">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                    <span class="text">방배정</span>
+                                </a>
+
+                        </td>
                         <td th:text="${people.seqno}"></td>
                         <td th:text="${people.people_key}"></td>
                         <td th:text="${people.name}"></td>
@@ -63,28 +69,13 @@
                         <td th:text="${people.gender}"></td>
                         <td th:text="${people.age}"></td>
                         <td th:text="${people.church}"></td>
-                        <td th:text="${people.first_pay}"></td>
-                        <td th:text="${people.sec_pay}"></td>
                         <td th:text="${people.complete_pay}"></td>
                         <td th:text="${people.pay_dt}"></td>
                         <td th:text="${people.pay_status}"></td>
                         <td th:text="${people.room_info}"></td>
-                        <td th:text="${people.reg_dt}"></td>
-                        <td th:text="${people.people_key_sec}"></td>
-                        <td th:text="${people.mon}"></td>
-                        <td th:text="${people.tue}"></td>
-                        <td th:text="${people.wed}"></td>
-                        <td th:text="${people.thu}"></td>
-                        <td th:text="${people.fri}"></td>
-                        <td th:text="${people.sat}"></td>
-                        <td th:text="${people.car}"></td>
-                        <td th:text="${people.bus}"></td>
-                        <td th:text="${people.bicycle}"></td>
-                        <td th:text="${people.how}"></td>
-                        <td th:text="${people.pastor}"></td>
-                        <td th:text="${people.north_korean}"></td>
-                        <td th:text="${people.layman}"></td>
+                        <td th:text="${people.member_status}"></td>
                         <td th:text="${people.allday_yn}"></td>
+                        <td th:text="${people.day}"></td>
 
                     </tr>
                     </tbody>
@@ -105,8 +96,9 @@
 
     </div>
     <!-- End of Content Wrapper -->
-
+<!--    </form>-->
 </div>
+
 <!-- End of Page Wrapper -->
 
 <!-- Footer -->
@@ -134,5 +126,10 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
+<script type="text/javascript" >
+    function userDetail(seqno){
+        window.open('/room/selectroom?seqno='+seqno, '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
+    };
+</script>
 </body>
 </html>

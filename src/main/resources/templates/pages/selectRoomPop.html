@@ -1,0 +1,59 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment/header :: headerFragment}">
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column ">
+                    <div class="table-responsive m-2">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>배정</th>
+                                <th>idx</th>
+                                <th>기숙사구분</th>
+                                <th>방번호</th>
+                                <th>현재인원/최대인원</th>
+                                <th>구분</th>
+                                <th>배정가능여부</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="room : ${roomlist}">
+                                <td>
+                                    <a href="/room/save" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+                                <td th:text="${room.seqno}"></td>
+                                <td th:text="${room.dormitory}"></td>
+                                <td th:text="${room.room_num}"></td>
+                                <td th:text="${room.max_people}"></td>
+                                <td th:text="${room.type}"></td>
+                                <td th:text="${room.status}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+            </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/js/demo/datatables-demo.js"></script>
+<script>
+</script>
+</body>
+</html>
