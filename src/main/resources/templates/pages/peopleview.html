@@ -54,28 +54,33 @@
                     <tr th:each="people : ${list}">
                         <td><input type="checkbox" th:value="${people.seqno}"></td>
                         <td>
+                            <div th:if ="${people.room_info==null}">
                                 <a id="selectRoom" class="btn btn-success btn-icon-split" th:onclick="userDetail([[${people.seqno}]])">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
                                     <span class="text">방배정</span>
                                 </a>
-
+                            </div>
+                            <div th:unless="${people.room_info==null}">
+                                -
+                            </div>
                         </td>
                         <td th:text="${people.seqno}"></td>
                         <td th:text="${people.people_key}"></td>
                         <td th:text="${people.name}"></td>
+                        <td th:text="${people.room_info}"></td>
+                        <td th:text="${people.member_status}"></td>
                         <td th:text="${people.mobile}"></td>
                         <td th:text="${people.gender}"></td>
                         <td th:text="${people.age}"></td>
                         <td th:text="${people.church}"></td>
+                        <td th:text="${people.allday_yn}"></td>
+                        <td th:text="${people.day}"></td>
                         <td th:text="${people.complete_pay}"></td>
                         <td th:text="${people.pay_dt}"></td>
                         <td th:text="${people.pay_status}"></td>
-                        <td th:text="${people.room_info}"></td>
-                        <td th:text="${people.member_status}"></td>
-                        <td th:text="${people.allday_yn}"></td>
-                        <td th:text="${people.day}"></td>
+
 
                     </tr>
                     </tbody>

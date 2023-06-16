@@ -10,4 +10,6 @@ import java.util.List;
 public interface RoomMasterRepository extends JpaRepository<RoomMasterEntity, Long> {
 
     List<RoomMasterEntity> findByStatus(String status);
+
+    RoomMasterEntity findBySeqno(long seqno);
 }

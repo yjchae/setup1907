@@ -25,4 +25,10 @@ public class PeopleService {
 
         return peopleDao.getPeopleViewList();
     }
+
+    public PeopleViewEntity getPeople(long peopleSeqno) {
+
+
+        return peopleDao.getPeople(peopleSeqno);
+    }
 }

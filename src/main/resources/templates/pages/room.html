@@ -25,21 +25,24 @@
                     <tr>
                         <th>-</th>
                         <th>idx</th>
+                        <th>이름</th>
+                        <th>기숙사</th>
                         <th>방번호</th>
-                        <th>날짜</th>
-                        <th>사람</th>
-                        <th>인원수</th>
+                        <th>시작날짜</th>
+                        <th>종료날짜</th>
+                        <th>사람key</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="room : ${roomlist}">
                         <td><input type="checkbox" th:value="${room.seqno}"></td>
                         <td th:text="${room.seqno}"></td>
+                        <td th:text="${room.name}"></td>
                         <td th:text="${room.dormitory}"></td>
                         <td th:text="${room.roomnum}"></td>
-                        <td th:text="${room.date}"></td>
+                        <td th:text="${room.stymd}"></td>
+                        <td th:text="${room.edymd}"></td>
                         <td th:text="${room.peoplekey}"></td>
-                        <td th:text="${room.max_people}"></td>
                     </tr>
                     </tbody>
                 </table>

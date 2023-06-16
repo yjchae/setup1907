@@ -10,4 +10,8 @@ public interface PeopleViewRepository extends JpaRepository<PeopleViewEntity, Lo
 
 //    List<PeopleEntity> findAllBy();
 
+    PeopleViewEntity findBySeqno(long seqno);
+
+
+
 }

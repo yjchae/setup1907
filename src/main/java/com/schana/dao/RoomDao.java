@@ -23,8 +23,12 @@ public class RoomDao {
      * @param roomnum
      * @return
      */
-    public List<RoomEntity> getRoomList(int roomnum){
-        return roomRepository.findByRoomnum(roomnum);
+    public List<RoomEntity> getRoomList(){
+        return roomRepository.findAll();
+    }
+
+    public int chkroom(long peopleseqno){
+        return roomRepository.checkMasterseqno(peopleseqno);
     }
 
     /**
@@ -39,6 +43,12 @@ public class RoomDao {
         return roomMasterRepository.findByStatus(roomstatus);
     }
 
+    public RoomMasterEntity getRoomSeqno(long roomstatus){
+        return roomMasterRepository.findBySeqno(roomstatus);
+    }
 
 
+    public void saveRoom(RoomEntity roomEntity) {
+        roomRepository.save(roomEntity);
+    }
 }

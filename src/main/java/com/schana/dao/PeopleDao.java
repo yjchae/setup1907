@@ -25,4 +25,15 @@ public class PeopleDao {
     }
 
 
+    public PeopleViewEntity getPeople(long peopleSeqno) {
+        return peopleViewRepository.findBySeqno(peopleSeqno);
+    }
+
+    public PeopleEntity getPeopleMaster(long seqno) {
+        return peopleRepository.findBySeqno(seqno);
+    }
+
+    public void save(PeopleEntity peopleMaster) {
+        peopleRepository.save(peopleMaster);
+    }
 }

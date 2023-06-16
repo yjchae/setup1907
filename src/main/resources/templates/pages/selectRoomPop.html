@@ -3,6 +3,7 @@
 <head th:replace="~{fragment/header :: headerFragment}">
 </head>
 <body id="page-top">
+<!--<input type="hidden" th:value ="${peopleSeqno}">-->
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column ">
                     <div class="table-responsive m-2">
@@ -21,7 +22,7 @@
                             <tbody>
                             <tr th:each="room : ${roomlist}">
                                 <td>
-                                    <a href="/room/save" class="btn btn-success btn-circle btn-sm">
+                                    <a class="btn btn-success btn-circle btn-sm" th:onclick="roomSave([[${room.seqno}]],[[${peopleSeqno}]])">
                                         <i class="fas fa-check"></i>
                                     </a>
                                 </td>
@@ -53,7 +54,42 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
-<script>
+<script type="text/javascript">
+    function roomSave(rseqno,pseqno){
+        if(confirm("저장하시겠습니까?")){
+            location.href = '/room/save?rseqno='+rseqno+'&pseqno='+pseqno;
+            // window.close();
+            // $.ajax({
+            //     type : 'POST',           // 타입 (get, post, put 등등)
+            //     url : '/room/save',           // 요청할 서버url
+            //     dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+            //     data : {
+            //         "rseqno" : rseqno
+            //         ,"pseqno" : pseqno
+            //     },
+            //     success : function(data) { // 결과 성공 콜백함수
+            //         alert("저장되었습니다.");
+            //     },
+            //     error : function(request, status, error) { // 결과 에러 콜백함수
+            //         alert("오류");
+            //     }
+            // })
+        }
+    };
+</script>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+
+    window.onload = () => {
+        const message = [[ ${params.message} ]];
+        if (message) {
+            alert(message);
+            window.close();
+        }
+
+    }
+
+    /* ]]> */
 </script>
 </body>
 </html>
