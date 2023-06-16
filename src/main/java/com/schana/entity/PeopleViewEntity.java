@@ -15,7 +15,7 @@ public class PeopleViewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seqno;
-    private String people_key;
+    private String peoplekey;
     private String name;
     private String mobile;
     private String gender;

@@ -5,6 +5,8 @@ import com.schana.entity.PeopleViewEntity;
 import com.schana.repository.PeopleRepository;
 import com.schana.repository.PeopleViewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +23,9 @@ public class PeopleDao {
         return peopleRepository.findAll();
     }
     public List<PeopleViewEntity> getPeopleViewList(){
-        return peopleViewRepository.findAll();
+//        Sort sort = Sort.by(Sort.Order.asc("church"),Sort.Order.asc("peoplekey"));
+//        return peopleViewRepository.findAllByOrderByChurchAscPeoplekeyAsc();
+        return peopleViewRepository.findAll(Sort.by(Sort.Order.asc("church"),Sort.Order.asc("peoplekey")));
     }
 
 

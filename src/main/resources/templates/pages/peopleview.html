@@ -37,22 +37,29 @@
                         <th>idx</th>
                         <th>신청인</th>
                         <th>이름</th>
+                        <th>방배정</th>
+                        <th>구분</th>
                         <th>번호</th>
                         <th>성별</th>
                         <th>나이</th>
                         <th>소속</th>
+                        <th>전참여부</th>
+                        <th>참석일</th>
                         <th>입금금액</th>
                         <th>입금날짜</th>
                         <th>입금상태</th>
-                        <th>방배정</th>
-                        <th>구분</th>
-                        <th>전참여부</th>
-                        <th>참석일</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="people : ${list}">
-                        <td><input type="checkbox" th:value="${people.seqno}"></td>
+                        <td>
+                            <div th:if ="${people.room_info==null}">
+                                <input type="checkbox" th:value="${people.seqno}">
+                            </div>
+                            <div th:unless="${people.room_info==null}">
+                                -
+                            </div>
+                        </td>
                         <td>
                             <div th:if ="${people.room_info==null}">
                                 <a id="selectRoom" class="btn btn-success btn-icon-split" th:onclick="userDetail([[${people.seqno}]])">
@@ -67,7 +74,7 @@
                             </div>
                         </td>
                         <td th:text="${people.seqno}"></td>
-                        <td th:text="${people.people_key}"></td>
+                        <td th:text="${people.peoplekey}"></td>
                         <td th:text="${people.name}"></td>
                         <td th:text="${people.room_info}"></td>
                         <td th:text="${people.member_status}"></td>
@@ -132,8 +139,13 @@
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
 <script type="text/javascript" >
+    var popup;
     function userDetail(seqno){
-        window.open('/room/selectroom?seqno='+seqno, '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
+        popup = window.open('/room/selectroom?seqno='+seqno, '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
+
+        popup.addEventListener('beforeunload', function(){
+            location.reload();
+        });
     };
 </script>
 </body>

@@ -1,10 +1,7 @@
 package com.schana.controller;
 
 import com.schana.dto.RoomDto;
-import com.schana.entity.PeopleEntity;
-import com.schana.entity.PeopleViewEntity;
-import com.schana.entity.RoomEntity;
-import com.schana.entity.RoomMasterEntity;
+import com.schana.entity.*;
 import com.schana.service.PeopleService;
 import com.schana.service.RoomService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,16 +42,16 @@ public class RoomController {
     @GetMapping("/listmaster")
     public String getRoomMasterInfo(Model model){
 
-        int roomnum = 1;
         //등록된 방정보
-        List<RoomMasterEntity> roomList = roomService.getRoomMasterList("");
+        List<RoomInfoEntity> roomList = roomService.getRoomInfoList();
 
-        HashMap<String,List<RoomMasterEntity>> resultMap = new HashMap<>();
+        HashMap<String,List<RoomInfoEntity>> resultMap = new HashMap<>();
         resultMap.put("roomlist",roomList);
         model.addAllAttributes(resultMap);
 
         return "pages/roomMaster";
     }
+
 
     @GetMapping(value = "/selectroom")
     public String getRoom(@ModelAttribute PeopleViewEntity peopleViewEntity
@@ -65,7 +62,7 @@ public class RoomController {
 
         //String ss = request.getParameter("seqno");
         //등록가능한 방정보
-        List<RoomMasterEntity> roomList = roomService.getRoomMasterList("");
+        List<RoomInfoEntity> roomList = roomService.getRoomInfoList();
 
         HashMap<String,Object> resultMap = new HashMap<>();
         resultMap.put("roomlist",roomList);
@@ -87,10 +84,10 @@ public class RoomController {
         //방등록
         String result = roomService.saveRoom(roomSeqno,peopleSeqno);
 
-        HashMap<String,Object> resultMap = new HashMap<>();
-
-        resultMap.put("message",result);
-        model.addAttribute("params",resultMap);
+//        HashMap<String,Object> resultMap = new HashMap<>();
+//
+//        resultMap.put("message",result);
+//        model.addAttribute("params",resultMap);
 
         return "pages/selectRoomPop";
     }

@@ -14,7 +14,8 @@
                                 <th>idx</th>
                                 <th>기숙사구분</th>
                                 <th>방번호</th>
-                                <th>현재인원/최대인원</th>
+                                <th>현재인원</th>
+                                <th>최대인원</th>
                                 <th>구분</th>
                                 <th>배정가능여부</th>
                             </tr>
@@ -29,6 +30,7 @@
                                 <td th:text="${room.seqno}"></td>
                                 <td th:text="${room.dormitory}"></td>
                                 <td th:text="${room.room_num}"></td>
+                                <td th:text="${room.regpeople}"></td>
                                 <td th:text="${room.max_people}"></td>
                                 <td th:text="${room.type}"></td>
                                 <td th:text="${room.status}"></td>
@@ -77,19 +79,6 @@
         }
     };
 </script>
-<script th:inline="javascript">
-    /* <![CDATA[ */
 
-    window.onload = () => {
-        const message = [[ ${params.message} ]];
-        if (message) {
-            alert(message);
-            window.close();
-        }
-
-    }
-
-    /* ]]> */
-</script>
 </body>
 </html>

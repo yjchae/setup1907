@@ -3,11 +3,7 @@ package com.schana.service;
 
 import com.schana.dao.PeopleDao;
 import com.schana.dao.RoomDao;
-import com.schana.dto.RoomDto;
-import com.schana.entity.PeopleEntity;
-import com.schana.entity.PeopleViewEntity;
-import com.schana.entity.RoomEntity;
-import com.schana.entity.RoomMasterEntity;
+import com.schana.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +44,22 @@ public class RoomService {
         return roomlist;
     }
 
+    /**
+     *  방정보 조회
+     * @param roomstatus
+     * @return
+     */
+    public List<RoomInfoEntity> getRoomInfoList() {
+        List<RoomInfoEntity> roomlist = new ArrayList<>();
+
+        roomlist = roomDao.getRoomInfoList();
+
+        return roomlist;
+    }
+
+
+
+
     public String saveRoom(String roomSeqno, String peopleSeqno) {
         //사람정보 세팅 start
         long pseqno = Long.parseLong(peopleSeqno);
@@ -64,7 +76,7 @@ public class RoomService {
 
         RoomEntity roomEntity =  new RoomEntity();
 
-        roomEntity.setPeoplekey(people.getPeople_key());
+        roomEntity.setPeoplekey(people.getPeoplekey());
         roomEntity.setName(people.getName());
         roomEntity.setStymd(firstday);
         roomEntity.setEdymd(lastday);

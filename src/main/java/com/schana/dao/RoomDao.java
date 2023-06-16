@@ -2,10 +2,13 @@ package com.schana.dao;
 
 import com.schana.dto.RoomDto;
 import com.schana.entity.RoomEntity;
+import com.schana.entity.RoomInfoEntity;
 import com.schana.entity.RoomMasterEntity;
+import com.schana.repository.RoomInfoRepository;
 import com.schana.repository.RoomMasterRepository;
 import com.schana.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +20,16 @@ public class RoomDao {
     private RoomRepository roomRepository;
     @Autowired
     private RoomMasterRepository roomMasterRepository;
+    @Autowired
+    private RoomInfoRepository roomInfoRepository;
 
     /**
-     *
+     * 방배정현황조회
      * @param roomnum
      * @return
      */
     public List<RoomEntity> getRoomList(){
-        return roomRepository.findAll();
+        return roomRepository.findAllByOrderByDormitoryAscRoomnumAsc();
     }
 
     public int chkroom(long peopleseqno){
@@ -50,5 +55,9 @@ public class RoomDao {
 
     public void saveRoom(RoomEntity roomEntity) {
         roomRepository.save(roomEntity);
+    }
+
+    public List<RoomInfoEntity> getRoomInfoList(){
+        return roomInfoRepository.findAllByOrderByStatus();
     }
 }

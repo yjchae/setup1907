@@ -15,4 +15,7 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
     //기존등록된 방정보 체크
     @Query(value = "select count(*) as cnt from tb_room where masterseqno = ?1 ", nativeQuery = true)
     int checkMasterseqno(long peopleseqno);
+
+    List<RoomEntity> findAllByOrderByDormitoryAscRoomnumAsc();
+
 }
