@@ -1,8 +1,6 @@
 package com.schana.entity;
 
-import com.schana.dto.RoomDto;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +18,10 @@ public class RoomEntity {
     private String date;
     private String peoplekey;
     private String dormitory;
-    private String start;
-    private String end;
+    private String stymd;
+    private String edymd;
     private String name;
+    private long masterseqno;
 
 //    @Builder()
 //    public RoomEntity(RoomDto roomDto){
