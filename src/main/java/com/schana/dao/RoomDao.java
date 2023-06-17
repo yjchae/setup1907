@@ -36,6 +36,14 @@ public class RoomDao {
         return roomRepository.checkMasterseqno(peopleseqno);
     }
 
+    public RoomEntity getRoomInfo(long seqno){
+        return roomRepository.findBySeqno(seqno);
+    }
+
+    public void deleteRoom(RoomEntity roomEntity){
+        roomRepository.delete(roomEntity);
+    }
+
     /**
      * 방정보 조회 master 테이블
      * @return

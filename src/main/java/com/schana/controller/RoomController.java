@@ -111,4 +111,16 @@ public class RoomController {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "/deleteroom",method = RequestMethod.GET)
+    public String deleteRoom(
+            HttpServletRequest request
+            , HttpSession session
+            , Model model)throws Exception{
+
+        String seqno  = request.getParameter("seqno");   //seqno
+
+        return roomService.deleteRoom(seqno);
+    }
+
 }

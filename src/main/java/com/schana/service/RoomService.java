@@ -131,4 +131,10 @@ public class RoomService {
 
         return day;
     }
+
+    public String deleteRoom(String seqno) {
+        RoomEntity roominfo = roomDao.getRoomInfo(Long.parseLong(seqno));
+        roomDao.deleteRoom(roominfo);
+        return "success";
+    }
 }

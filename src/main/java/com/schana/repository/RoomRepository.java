@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 방배정 정보
+ */
 @Repository
 public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
 
@@ -17,5 +20,7 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
     int checkMasterseqno(long peopleseqno);
 
     List<RoomEntity> findAllByOrderByDormitoryAscRoomnumAsc();
+
+    RoomEntity findBySeqno(long seqno);
 
 }
