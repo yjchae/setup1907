@@ -60,7 +60,7 @@ public class RoomService {
 
 
 
-    public String saveRoom(String roomSeqno, String peopleSeqno) {
+    public String saveRoom(String roomSeqno, String peopleSeqno, String push) {
         //사람정보 세팅 start
         long pseqno = Long.parseLong(peopleSeqno);
 
@@ -90,15 +90,16 @@ public class RoomService {
         roomEntity.setDormitory(roomMaster.getDormitory());
 
         String result = "";
-        if(roomMaster.getType().equals(people.getMember_status())){
+        if(roomMaster.getType().equals(people.getMember_status())
+            || push.equals("push")){
             roomDao.saveRoom(roomEntity);
 
             peopleMaster.setRoom_info(roomMaster.getDormitory()+roomMaster.getRoom_num());
             peopleDao.save(peopleMaster);
 
-            result = "저장 되었습니다.";
+            result = "success";
         }else{
-            result = "방 타입이 잘못 되었습니다.";
+            result = "else";
         }
 
         return result;

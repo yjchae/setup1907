@@ -59,23 +59,53 @@
 <script type="text/javascript">
     function roomSave(rseqno,pseqno){
         if(confirm("저장하시겠습니까?")){
-            location.href = '/room/save?rseqno='+rseqno+'&pseqno='+pseqno;
+            // location.href = '/room/save?rseqno='+rseqno+'&pseqno='+pseqno;
             // window.close();
-            // $.ajax({
-            //     type : 'POST',           // 타입 (get, post, put 등등)
-            //     url : '/room/save',           // 요청할 서버url
-            //     dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
-            //     data : {
-            //         "rseqno" : rseqno
-            //         ,"pseqno" : pseqno
-            //     },
-            //     success : function(data) { // 결과 성공 콜백함수
-            //         alert("저장되었습니다.");
-            //     },
-            //     error : function(request, status, error) { // 결과 에러 콜백함수
-            //         alert("오류");
-            //     }
-            // })
+            $.ajax({
+                type : 'GET',           // 타입 (get, post, put 등등)
+                url : '/room/save',           // 요청할 서버url
+                // dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+                data : {
+                    "rseqno" : rseqno
+                    ,"pseqno" : pseqno
+                    ,"push" : ""
+                },
+                success : function(data) { // 결과 성공 콜백함수
+                    if(data == "success"){
+                        alert("저장되었습니다.");
+                        window.close();
+                    }else if(data == "else"){
+                        if(confirm("방타입이 다릅니다. 계속 저장하시겠습니까?")){
+                            $.ajax({
+                                type : 'GET',           // 타입 (get, post, put 등등)
+                                url : '/room/save',           // 요청할 서버url
+                                // dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+                                data : {
+                                    "rseqno" : rseqno
+                                    ,"pseqno" : pseqno
+                                    ,"push" : "push"
+                                },
+                                success : function(data) {
+                                    if(data == "success"){
+                                        alert("저장되었습니다.");
+                                        window.close();
+                                    }
+                                },
+                                error : function(request, status, error) { // 결과 에러 콜백함수
+                                    alert("오류");
+                                }
+
+                            })
+                        }
+                    }
+
+
+
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    alert("오류");
+                }
+            })
         }
     };
 </script>

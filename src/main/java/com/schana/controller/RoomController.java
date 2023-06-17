@@ -5,6 +5,7 @@ import com.schana.entity.*;
 import com.schana.service.PeopleService;
 import com.schana.service.RoomService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,23 +74,41 @@ public class RoomController {
         return "pages/selectRoomPop";
     }
 
-    @GetMapping(value = "/save")
+//    @GetMapping(value = "/save")
+//    public String saveRoom(
+//            HttpServletRequest request
+//            ,Model model)throws Exception{
+//
+//        String roomSeqno  = request.getParameter("rseqno"); //방 seqno
+//        String peopleSeqno  = request.getParameter("pseqno");   //사람 seqno
+//
+//        //방등록
+//        String result = roomService.saveRoom(roomSeqno,peopleSeqno);
+//
+////        HashMap<String,Object> resultMap = new HashMap<>();
+////
+////        resultMap.put("message",result);
+////        model.addAttribute("params",resultMap);
+//
+//        return "pages/selectRoomPop";
+//    }
+
+    @ResponseBody
+    @RequestMapping(value = "/save",method = RequestMethod.GET)
     public String saveRoom(
             HttpServletRequest request
-            ,Model model)throws Exception{
+            , HttpSession session
+            , Model model)throws Exception{
 
         String roomSeqno  = request.getParameter("rseqno"); //방 seqno
         String peopleSeqno  = request.getParameter("pseqno");   //사람 seqno
+        String push = request.getParameter("push");
 
         //방등록
-        String result = roomService.saveRoom(roomSeqno,peopleSeqno);
+        String result = roomService.saveRoom(roomSeqno,peopleSeqno,push);
 
-//        HashMap<String,Object> resultMap = new HashMap<>();
-//
-//        resultMap.put("message",result);
-//        model.addAttribute("params",resultMap);
-
-        return "pages/selectRoomPop";
+        return result;
     }
+
 
 }
