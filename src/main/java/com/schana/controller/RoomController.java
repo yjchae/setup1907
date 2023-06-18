@@ -61,6 +61,8 @@ public class RoomController {
 
         Long peopleSeqno  = peopleViewEntity.getSeqno();
 
+        String peopleSeqArr = request.getParameter("seqno_arr");
+
         //String ss = request.getParameter("seqno");
         //등록가능한 방정보
         List<RoomInfoEntity> roomList = roomService.getRoomInfoList();
@@ -68,6 +70,7 @@ public class RoomController {
         HashMap<String,Object> resultMap = new HashMap<>();
         resultMap.put("roomlist",roomList);
         resultMap.put("peopleSeqno",peopleSeqno);
+        resultMap.put("peopleSeqArr",peopleSeqArr);
 
         model.addAllAttributes(resultMap);
 
@@ -103,9 +106,10 @@ public class RoomController {
         String roomSeqno  = request.getParameter("rseqno"); //방 seqno
         String peopleSeqno  = request.getParameter("pseqno");   //사람 seqno
         String push = request.getParameter("push");
+        String peopleSeqnoArr = request.getParameter("pseqnoarr");
 
         //방등록
-        String result = roomService.saveRoom(roomSeqno,peopleSeqno,push);
+        String result = roomService.saveRoom(roomSeqno,peopleSeqno,push,peopleSeqnoArr);
 
         return result;
     }
@@ -119,6 +123,7 @@ public class RoomController {
             , Model model)throws Exception{
 
         String seqno  = request.getParameter("seqno");   //seqno
+
 
         return roomService.deleteRoom(seqno);
     }

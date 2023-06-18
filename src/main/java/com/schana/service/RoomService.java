@@ -58,10 +58,31 @@ public class RoomService {
     }
 
 
-
-
-    public String saveRoom(String roomSeqno, String peopleSeqno, String push) {
+    /**
+     * 방배정 저장
+     * @param roomSeqno 방 seqno
+     * @param peopleSeqno 사람 seqno
+     * @param push
+     * @param peopleSeqnoArr    다중 선택 seqno
+     * @return
+     */
+    public String saveRoom(String roomSeqno, String peopleSeqno, String push, String peopleSeqnoArr) {
         //사람정보 세팅 start
+        String result = "";
+        if(peopleSeqnoArr.isEmpty()){
+            result = saveRoomDetail(roomSeqno, peopleSeqno, push);
+        }else{
+            String[] pseqnoArr = peopleSeqnoArr.split(",");
+            for(String pseqno : pseqnoArr){
+                result = saveRoomDetail(roomSeqno, pseqno, push);
+            }
+        }
+
+        return result;
+    }
+
+    private String saveRoomDetail(String roomSeqno,String peopleSeqno,String push){
+
         long pseqno = Long.parseLong(peopleSeqno);
 
         PeopleViewEntity people = peopleDao.getPeople(pseqno);
@@ -91,7 +112,7 @@ public class RoomService {
 
         String result = "";
         if(roomMaster.getType().equals(people.getMember_status())
-            || push.equals("push")){
+                || push.equals("push")){
             if(oldRoomInfo == null){
                 roomDao.saveRoom(roomEntity);
             }else{
