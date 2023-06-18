@@ -16,7 +16,7 @@ public class RoomInfoEntity {
     private long seqno;
     private Integer regpeople;
     private String dormitory;
-    private Integer room_num;
+    private Integer roomnum;
     private Integer max_people;
     private String type;
     private String status;

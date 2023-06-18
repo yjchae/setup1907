@@ -70,7 +70,7 @@ public class RoomDao {
     }
 
     public List<RoomInfoEntity> getRoomInfoList(){
-        return roomInfoRepository.findAllByOrderByStatus();
+        return roomInfoRepository.findAllByOrderByStatusAscRoomnumAsc();
     }
 
 
