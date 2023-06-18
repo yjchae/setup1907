@@ -72,7 +72,7 @@ public class RoomService {
         String lastday = getdate(String.valueOf(day.charAt(day.length()-1)));
 
         //1. 기존 등록된인원인지 체크
-//        roomDao.chkroom(pseqno);
+        RoomEntity oldRoomInfo = roomDao.getRoomInfoPeople(pseqno);
 
         RoomEntity roomEntity =  new RoomEntity();
 
@@ -92,7 +92,13 @@ public class RoomService {
         String result = "";
         if(roomMaster.getType().equals(people.getMember_status())
             || push.equals("push")){
-            roomDao.saveRoom(roomEntity);
+            if(oldRoomInfo == null){
+                roomDao.saveRoom(roomEntity);
+            }else{
+                oldRoomInfo.setRoomnum(roomMaster.getRoom_num());
+                oldRoomInfo.setDormitory(roomMaster.getDormitory());
+                roomDao.saveRoom(oldRoomInfo);
+            }
 
             peopleMaster.setRoom_info(roomMaster.getDormitory()+roomMaster.getRoom_num());
             peopleDao.save(peopleMaster);

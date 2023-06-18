@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@DynamicUpdate
 @Table(name ="tb_room")
 public class RoomEntity {
     @Id

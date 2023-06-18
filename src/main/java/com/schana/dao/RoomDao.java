@@ -40,6 +40,10 @@ public class RoomDao {
         return roomRepository.findBySeqno(seqno);
     }
 
+    public RoomEntity getRoomInfoPeople(long pseqno) {
+        return roomRepository.findByMasterseqno(pseqno);
+    }
+
     public void deleteRoom(RoomEntity roomEntity){
         roomRepository.delete(roomEntity);
     }
@@ -68,4 +72,6 @@ public class RoomDao {
     public List<RoomInfoEntity> getRoomInfoList(){
         return roomInfoRepository.findAllByOrderByStatus();
     }
+
+
 }
