@@ -31,4 +31,14 @@ public class PeopleService {
 
         return peopleDao.getPeople(peopleSeqno);
     }
+
+    public void updatePeople(PeopleEntity peopleEntity) {
+
+        //사람정보 조회
+        PeopleEntity oldpeopleinfo = peopleDao.getPeopleMater(peopleEntity.getSeqno());
+        oldpeopleinfo.setComplete_pay(peopleEntity.getComplete_pay());
+        oldpeopleinfo.setPay_dt(peopleEntity.getPay_dt());
+
+        peopleDao.save(oldpeopleinfo);
+    }
 }

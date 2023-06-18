@@ -5,13 +5,14 @@ import com.schana.entity.PeopleViewEntity;
 import com.schana.entity.RoomMasterEntity;
 import com.schana.service.PeopleService;
 import com.schana.service.RoomService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,20 @@ public class PeopleController {
 //        model.addAllAttributes(resultMap);
 
         return "pages/peopleview";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/insertpay",method = RequestMethod.GET)
+    public String insertPay(
+            @ModelAttribute PeopleEntity peopleEntity
+            ,HttpServletRequest request
+            , HttpSession session
+            , Model model)throws Exception{
+
+        //입금액 수정
+        peopleService.updatePeople(peopleEntity);
+
+        return "success";
     }
 
 }

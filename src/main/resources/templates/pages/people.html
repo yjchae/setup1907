@@ -35,6 +35,7 @@
                         <th>입금금액</th>
                         <th>입금날짜</th>
                         <th>입금상태</th>
+                        <th>저장</th>
                         <th>방배정</th>
                         <th>등록날짜</th>
                         <th>대표인</th>
@@ -65,8 +66,20 @@
                         <td th:text="${people.church}"></td>
                         <td th:text="${people.first_pay}"></td>
                         <td th:text="${people.sec_pay}"></td>
-                        <td th:text="${people.complete_pay}"></td>
-                        <td th:text="${people.pay_dt}"></td>
+                        <td><label>
+                            <input id="insert-pay" type="number" th:value="${people.complete_pay}">
+                        </label></td>
+                        <td><label>
+                            <input id="paydt" type ="text" th:value="${people.pay_dt}">
+                        </label>
+                        </td>
+                        <td>
+                            <a class="btn btn-success btn-icon-split btn-sm" th:onclick="insertPay([[${people.seqno}]])">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </a>
+                        </td>
                         <td th:text="${people.pay_status}"></td>
                         <td th:text="${people.room_info}"></td>
                         <td th:text="${people.reg_dt}"></td>
@@ -134,5 +147,28 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
+<script type="text/javascript">
+
+     function insertPay(peopleseqno){
+         if(confirm("입금정보를 저장하시겠습니까?")){
+             $.ajax({
+                 type : 'GET',           // 타입 (get, post, put 등등)
+                 url : '/people/insertpay',           // 요청할 서버url
+                 data : {
+                     "complete_pay" : $('#insert-pay').val()
+                     ,"pay_dt" : $('#paydt').val()
+                     ,"seqno" : peopleseqno
+                 },
+                 success : function(data) { // 결과 성공 콜백함수
+                     alert("저장 되었습니다.");
+                     location.replace(location.href);
+                 },
+                 error : function(request, status, error) { // 결과 에러 콜백함수
+                     alert("오류");
+                 }
+             })
+         }
+     }
+</script>
 </body>
 </html>

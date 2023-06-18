@@ -40,4 +40,8 @@ public class PeopleDao {
     public void save(PeopleEntity peopleMaster) {
         peopleRepository.save(peopleMaster);
     }
+
+    public PeopleEntity getPeopleMater(long seqno) {
+        return peopleRepository.findBySeqno(seqno);
+    }
 }
