@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -126,6 +125,24 @@ public class RoomController {
 
 
         return roomService.deleteRoom(seqno);
+    }
+
+    @GetMapping("/reginfo")
+    public String regRoom(Model model){
+
+        model.addAttribute("roomDto",new RoomDto());
+        return "pages/makeRoom";
+    }
+
+    @RequestMapping(value = "/make" ,method = RequestMethod.POST)
+    public String makeRoom(
+            @ModelAttribute("roomDto") RoomDto roomDto
+            ,Model model){
+
+//        model.addAttribute("roomDto",new RoomDto());
+        roomDto.getDormitory();
+
+        return "pages/makeRoom";
     }
 
 }
