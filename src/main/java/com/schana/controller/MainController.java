@@ -1,7 +1,7 @@
 package com.schana.controller;
 
-import com.schana.entity.RoomEntity;
-import com.schana.service.RoomService;
+import com.schana.entity.AssemblyInfoEntity;
+import com.schana.service.AssemblyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,13 @@ public class MainController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private RoomService roomService;
+    private AssemblyService assemblyService;
 
     @GetMapping("/index")
     public String mainIndex(Model model){
 
-//        int roomnum = 1;
-//        //등록된 방정보
-//        List<RoomEntity> roomList = roomService.getRoomList(roomnum);
-//
-//        HashMap<String,List<RoomEntity>> resultMap = new HashMap<>();
-//        resultMap.put("roomlist",roomList);
-//        model.addAllAttributes(resultMap);
+        AssemblyInfoEntity assemblyinfo = assemblyService.getAssemblyInfo();
+        model.addAttribute("assemblyinfoDto",assemblyinfo);
 
         return "pages/index";
     }

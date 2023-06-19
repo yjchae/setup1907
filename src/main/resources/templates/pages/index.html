@@ -39,28 +39,14 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             등록인원
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,150명</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.peopletotal}"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            참석자
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,150명</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
@@ -72,12 +58,9 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">2150명</div>
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.todaypeople}"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -93,35 +76,127 @@
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             사용중인방
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">500개</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.useroom}"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            비어있는방
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.emptyroom}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            참석자
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.useroomtotal}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            성인참석자(총) 20세 이상
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.adult}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            중고등참석자(총) 14세 ~ 19세
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.midhigh}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            초등 참석자(총) 8세 ~ 13세
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.cho}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            유치부 이하 참석자(총) 8세 미만
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${assemblyinfoDto.baby}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Content Row -->
 
-                <div class="row">
+<!--                <div class="row">-->
 
-                    <!-- Area Chart -->
-                    <div class="col-xl-9 col-lg-7">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">일자별 참석현황</h6>
-                            </div>
-                            <!-- Card Body -->
-<!--                            <div class="card-body">-->
-<!--                                <div class="chart-area">-->
-<!--                                    <canvas id="myAreaChart"></canvas>-->
-<!--                                </div>-->
+<!--                    &lt;!&ndash; Area Chart &ndash;&gt;-->
+<!--                    <div class="col-xl-9 col-lg-7">-->
+<!--                        <div class="card shadow mb-4">-->
+<!--                            &lt;!&ndash; Card Header - Dropdown &ndash;&gt;-->
+<!--                            <div-->
+<!--                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">-->
+<!--                                <h6 class="m-0 font-weight-bold text-primary">일자별 참석현황</h6>-->
 <!--                            </div>-->
-                        </div>
-                    </div>
-                </div>
+<!--                            &lt;!&ndash; Card Body &ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="chart-area">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <canvas id="myAreaChart"></canvas>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <!-- /.container-fluid -->
 

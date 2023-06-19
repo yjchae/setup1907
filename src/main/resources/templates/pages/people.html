@@ -34,8 +34,8 @@
                         <th>2차금액</th>
                         <th>입금금액</th>
                         <th>입금날짜</th>
-                        <th>입금상태</th>
                         <th>저장</th>
+                        <th>입금상태</th>
                         <th>방배정</th>
                         <th>등록날짜</th>
                         <th>대표인</th>
@@ -67,10 +67,10 @@
                         <td th:text="${people.first_pay}"></td>
                         <td th:text="${people.sec_pay}"></td>
                         <td><label>
-                            <input id="insert-pay" type="number" th:value="${people.complete_pay}">
+                            <input th:id="'insert-pay'+${people.seqno}" type="number" th:value="${people.complete_pay}">
                         </label></td>
                         <td><label>
-                            <input id="paydt" type ="text" th:value="${people.pay_dt}">
+                            <input th:id="'paydt'+${people.seqno}" type ="text" th:value="${people.pay_dt}">
                         </label>
                         </td>
                         <td>
@@ -155,8 +155,8 @@
                  type : 'GET',           // 타입 (get, post, put 등등)
                  url : '/people/insertpay',           // 요청할 서버url
                  data : {
-                     "complete_pay" : $('#insert-pay').val()
-                     ,"pay_dt" : $('#paydt').val()
+                     "complete_pay" : $('#insert-pay'+peopleseqno).val()
+                     ,"pay_dt" : $('#paydt'+peopleseqno).val()
                      ,"seqno" : peopleseqno
                  },
                  success : function(data) { // 결과 성공 콜백함수

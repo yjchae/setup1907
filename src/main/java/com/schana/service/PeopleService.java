@@ -33,11 +33,15 @@ public class PeopleService {
     }
 
     public void updatePeople(PeopleEntity peopleEntity) {
-
         //사람정보 조회
         PeopleEntity oldpeopleinfo = peopleDao.getPeopleMater(peopleEntity.getSeqno());
         oldpeopleinfo.setComplete_pay(peopleEntity.getComplete_pay());
         oldpeopleinfo.setPay_dt(peopleEntity.getPay_dt());
+
+        if(oldpeopleinfo.getFirst_pay().equals(peopleEntity.getComplete_pay())
+            || oldpeopleinfo.getSec_pay().equals(peopleEntity.getComplete_pay()) ){
+            oldpeopleinfo.setPay_status("입금완료");
+        }
 
         peopleDao.save(oldpeopleinfo);
     }
