@@ -11,7 +11,10 @@ import org.hibernate.annotations.DynamicUpdate;
 @Setter
 @NoArgsConstructor
 @DynamicUpdate
-@Table(name ="tb_people")
+@Table(name ="tb_people", indexes = {
+        @Index(name="idx__seqno__name", columnList = "seqno, name"),
+        @Index(name="idx__seqno__church", columnList = "seqno, church")
+})
 public class PeopleEntity {
 
     @Id

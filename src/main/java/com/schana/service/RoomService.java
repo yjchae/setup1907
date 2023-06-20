@@ -3,6 +3,7 @@ package com.schana.service;
 
 import com.schana.dao.PeopleDao;
 import com.schana.dao.RoomDao;
+import com.schana.dto.RoomDto;
 import com.schana.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -163,5 +164,34 @@ public class RoomService {
         RoomEntity roominfo = roomDao.getRoomInfo(Long.parseLong(seqno));
         roomDao.deleteRoom(roominfo);
         return "success";
+    }
+
+    public void createRoom(RoomDto roomDto) {
+        int startRoom = Integer.parseInt(roomDto.getStartroom());
+        int endRoom = Integer.parseInt(roomDto.getEndroom());
+//        int tmpStartRoom = startRoom;
+
+        //시작방번호 종료방번호 차이로 방 생성
+//        for(int i=startRoom ; i <= endRoom ;i++){
+        while (startRoom <= endRoom){
+            int breaknum=0;
+
+            RoomMasterEntity roomMasterEntity = RoomMasterEntity.builder()
+                    .dormitory(roomDto.getDormitory())
+                    .room_num(startRoom)
+                    .max_people(roomDto.getMaxpeople())
+                    .type(roomDto.getType())
+                    .status("Y")
+                    .build();
+
+            startRoom++;
+            breaknum++;
+
+            if(breaknum >100){
+                break;
+            }
+            //방정보 저장
+            roomDao.creatRoom(roomMasterEntity);
+        }
     }
 }

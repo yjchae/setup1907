@@ -1,5 +1,6 @@
 package com.schana.controller;
 
+import com.schana.dto.Message;
 import com.schana.dto.RoomDto;
 import com.schana.entity.*;
 import com.schana.service.PeopleService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -134,15 +136,22 @@ public class RoomController {
         return "pages/makeRoom";
     }
 
+
     @RequestMapping(value = "/make" ,method = RequestMethod.POST)
     public String makeRoom(
             @ModelAttribute("roomDto") RoomDto roomDto
-            ,Model model){
+            , ModelAndView modelAndView
+            , Model model){
 
-//        model.addAttribute("roomDto",new RoomDto());
-        roomDto.getDormitory();
+        roomService.createRoom(roomDto);
 
-        return "pages/makeRoom";
+        HashMap<String,String> paramMap = new HashMap<>();
+        paramMap.put("message","저장되었습니다.");
+        paramMap.put("href","reginfo");
+//
+        model.addAllAttributes(paramMap);
+
+        return "pages/message";
     }
 
 }

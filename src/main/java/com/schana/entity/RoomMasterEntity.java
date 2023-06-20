@@ -1,14 +1,17 @@
 package com.schana.entity;
 
+import com.schana.dto.RoomDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@DynamicUpdate
 @Table(name ="tb_room_master")
 public class RoomMasterEntity {
     @Id
@@ -20,13 +23,20 @@ public class RoomMasterEntity {
     private String type;
     private String status;
 
-//    @Builder()
-//    public RoomEntity(RoomDto roomDto){
-//        this.roomnum = roomDto.getRoomnum();
-//        this.date = roomDto.getDate();
-//        this.peoplekey = roomDto.getPeoplekey();
-//        this.inout = roomDto.getInout();
+//    public static RoomMasterEntityBuilder builder(RoomDto roomDto){
+//        return RoomMasterEntityBuilder()
+//                .dormitory(roomDto.getDormitory())
+//                .room_num(roomDto.getRoomnum())
+//                .max_people(roomDto.getMaxpeople())
+//                .type(roomDto.getType())
+//                .status(roomDto.getStatus());
+//    }
+//    @Builder
+//    public RoomMasterEntity(RoomDto roomDto){
 //        this.dormitory = roomDto.getDormitory();
-//        this.max_people = roomDto.getMax_people();
+//        this.room_num = roomDto.getRoomnum();
+//        this.max_people = roomDto.getMaxpeople();
+//        this.type = roomDto.getType();
+//        this.status =roomDto.getStatus();
 //    }
 }

@@ -74,4 +74,7 @@ public class RoomDao {
     }
 
 
+    public void creatRoom(RoomMasterEntity roomMasterEntity) {
+        roomMasterRepository.save(roomMasterEntity);
+    }
 }
