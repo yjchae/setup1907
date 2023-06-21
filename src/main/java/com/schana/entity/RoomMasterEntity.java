@@ -18,8 +18,8 @@ public class RoomMasterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seqno;
     private String dormitory;
-    private Integer room_num;
-    private Integer max_people;
+    private Integer roomnum;
+    private Integer maxpeople;
     private String type;
     private String status;
 

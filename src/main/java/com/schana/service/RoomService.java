@@ -108,7 +108,7 @@ public class RoomService {
 
         //방정보 세팅
         RoomMasterEntity roomMaster = roomDao.getRoomSeqno(Long.parseLong(roomSeqno));
-        roomEntity.setRoomnum(roomMaster.getRoom_num());
+        roomEntity.setRoomnum(roomMaster.getRoomnum());
         roomEntity.setDormitory(roomMaster.getDormitory());
 
         String result = "";
@@ -117,12 +117,12 @@ public class RoomService {
             if(oldRoomInfo == null){
                 roomDao.saveRoom(roomEntity);
             }else{
-                oldRoomInfo.setRoomnum(roomMaster.getRoom_num());
+                oldRoomInfo.setRoomnum(roomMaster.getRoomnum());
                 oldRoomInfo.setDormitory(roomMaster.getDormitory());
                 roomDao.saveRoom(oldRoomInfo);
             }
 
-            peopleMaster.setRoom_info(roomMaster.getDormitory()+roomMaster.getRoom_num());
+            peopleMaster.setRoom_info(roomMaster.getDormitory()+roomMaster.getRoomnum());
             peopleDao.save(peopleMaster);
 
             result = "success";
@@ -175,23 +175,33 @@ public class RoomService {
 //        for(int i=startRoom ; i <= endRoom ;i++){
         while (startRoom <= endRoom){
             int breaknum=0;
+            if(breaknum >100){
+                break;
+            }
 
-            RoomMasterEntity roomMasterEntity = RoomMasterEntity.builder()
-                    .dormitory(roomDto.getDormitory())
-                    .room_num(startRoom)
-                    .max_people(roomDto.getMaxpeople())
-                    .type(roomDto.getType())
-                    .status("Y")
-                    .build();
+            RoomMasterEntity oldRoom = roomDao.getRoomMaster(roomDto.getDormitory(),startRoom);
+
+            //방정보 저장
+            if(oldRoom ==null){
+                RoomMasterEntity roomMasterEntity = RoomMasterEntity.builder()
+                        .dormitory(roomDto.getDormitory())
+                        .roomnum(startRoom)
+                        .maxpeople(roomDto.getMaxpeople())
+                        .type(roomDto.getType())
+                        .status("Y")
+                        .build();
+
+                roomDao.creatRoom(roomMasterEntity);
+            }else{
+                oldRoom.setType(roomDto.getType());
+                oldRoom.setMaxpeople(roomDto.getMaxpeople());
+
+                roomDao.creatRoom(oldRoom);
+            }
 
             startRoom++;
             breaknum++;
 
-            if(breaknum >100){
-                break;
-            }
-            //방정보 저장
-            roomDao.creatRoom(roomMasterEntity);
         }
     }
 }

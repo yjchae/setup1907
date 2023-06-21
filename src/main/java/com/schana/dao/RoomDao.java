@@ -77,4 +77,8 @@ public class RoomDao {
     public void creatRoom(RoomMasterEntity roomMasterEntity) {
         roomMasterRepository.save(roomMasterEntity);
     }
+
+    public RoomMasterEntity getRoomMaster(String dormitory, int roomnum){
+       return roomMasterRepository.findByDormitoryAndRoomnum(dormitory,roomnum);
+    }
 }

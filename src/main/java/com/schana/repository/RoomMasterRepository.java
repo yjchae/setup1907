@@ -12,4 +12,6 @@ public interface RoomMasterRepository extends JpaRepository<RoomMasterEntity, Lo
     List<RoomMasterEntity> findByStatus(String status);
 
     RoomMasterEntity findBySeqno(long seqno);
+
+    RoomMasterEntity findByDormitoryAndRoomnum(String dormitory, int room_num);
 }
