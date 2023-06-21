@@ -23,6 +23,14 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
+                        <th>
+                            <a id="selectMulti" class="btn btn-danger btn-icon-split btn-sm" th:onclick="roomDelete()">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                                                <span class="text">선택삭제</span>
+                            </a>
+                        </th>
                         <th>idx</th>
                         <th>기숙사구분</th>
                         <th>방번호</th>
@@ -33,11 +41,22 @@
                     </thead>
                     <tbody>
                     <tr th:each="room : ${roomlist}">
+                        <td>
+                            <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${room.seqno}">
+                        </td>
                         <td th:text="${room.seqno}"></td>
                         <td th:text="${room.dormitory}"></td>
                         <td th:text="${room.roomnum}"></td>
                         <td th:text="${room.maxpeople}"></td>
                         <td th:text="${room.type}"></td>
+<!--                        <td>-->
+<!--                            <select class="form-select" aria-label="Default select example" th:value="${room.type}">-->
+<!--                                <option th:selected="${room.type}=='한국성도'">한국성도</option>-->
+<!--                                <option th:selected="${room.type}=='탈북민'">탈북민</option>-->
+<!--                                <option th:selected="${room.type}=='강사'">강사</option>-->
+<!--                                <option th:selected="${room.type}=='고장난방'">고장난방</option>-->
+<!--                            </select>-->
+<!--                        </td>-->
                         <td th:text="${room.status}"></td>
                     </tr>
                     </tbody>
@@ -87,5 +106,33 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
+<script type="text/javascript">
+
+    function roomDelete(){
+        if(confirm("선택한 방을 삭제하시겠습니까?")){
+            var roomSeqnoArr = [];
+            $("input[name=checkbox]:checked").each(function(){
+                var chk = $(this).val();
+                roomSeqnoArr.push(chk);
+            })
+
+            $.ajax({
+                type : 'GET',           // 타입 (get, post, put 등등)
+                url : '/room/deletemaster?roomSeqnoArr='+roomSeqnoArr,           // 요청할 서버url
+                // data : {
+                //     "roomSeqnoArr" : roomSeqnoArr
+                // },
+                success : function(data) { // 결과 성공 콜백함수
+                    alert("삭제 되었습니다.");
+                    location.replace(location.href);
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    alert("오류");
+                }
+            })
+        }
+    }
+
+</script>
 </body>
 </html>

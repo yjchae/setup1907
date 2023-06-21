@@ -170,6 +170,7 @@ public class RoomService {
         int startRoom = Integer.parseInt(roomDto.getStartroom());
         int endRoom = Integer.parseInt(roomDto.getEndroom());
 //        int tmpStartRoom = startRoom;
+        roomDto.setStatus("Y");
 
         //시작방번호 종료방번호 차이로 방 생성
 //        for(int i=startRoom ; i <= endRoom ;i++){
@@ -181,6 +182,10 @@ public class RoomService {
 
             RoomMasterEntity oldRoom = roomDao.getRoomMaster(roomDto.getDormitory(),startRoom);
 
+            if(roomDto.getType().equals("고장난방")){
+                roomDto.setStatus("N");
+            }
+
             //방정보 저장
             if(oldRoom ==null){
                 RoomMasterEntity roomMasterEntity = RoomMasterEntity.builder()
@@ -188,13 +193,14 @@ public class RoomService {
                         .roomnum(startRoom)
                         .maxpeople(roomDto.getMaxpeople())
                         .type(roomDto.getType())
-                        .status("Y")
+                        .status(roomDto.getStatus())
                         .build();
 
                 roomDao.creatRoom(roomMasterEntity);
             }else{
                 oldRoom.setType(roomDto.getType());
                 oldRoom.setMaxpeople(roomDto.getMaxpeople());
+                oldRoom.setStatus(roomDto.getStatus());
 
                 roomDao.creatRoom(oldRoom);
             }
@@ -204,4 +210,13 @@ public class RoomService {
 
         }
     }
+
+    public void deleteRoomMaster(String roomSeqnoArr) {
+
+        String[] rseqnoArr = roomSeqnoArr.split(",");
+        for(String rseqno : rseqnoArr){
+            roomDao.deleteRoomMater(Long.parseLong(rseqno));
+        }
+    }
+
 }

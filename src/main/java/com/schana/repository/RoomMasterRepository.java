@@ -14,4 +14,6 @@ public interface RoomMasterRepository extends JpaRepository<RoomMasterEntity, Lo
     RoomMasterEntity findBySeqno(long seqno);
 
     RoomMasterEntity findByDormitoryAndRoomnum(String dormitory, int room_num);
+
+//    RoomMasterEntity deleteBySeqno(long roomseqno);
 }

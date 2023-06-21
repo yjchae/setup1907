@@ -15,8 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/room")
@@ -48,6 +51,7 @@ public class RoomController {
         List<RoomInfoEntity> roomList = roomService.getRoomInfoList();
 
         HashMap<String,List<RoomInfoEntity>> resultMap = new HashMap<>();
+
         resultMap.put("roomlist",roomList);
         model.addAllAttributes(resultMap);
 
@@ -148,6 +152,33 @@ public class RoomController {
         HashMap<String,String> paramMap = new HashMap<>();
         paramMap.put("message","저장되었습니다.");
         paramMap.put("href","reginfo");
+//
+        model.addAllAttributes(paramMap);
+
+        return "pages/message";
+    }
+
+    /**
+     * 방정보조회 master - 선택삭제
+     * @param request
+     * @param modelAndView
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/deletemaster",method = RequestMethod.GET)
+    public String deleteRoom(
+            HttpServletRequest request
+            , ModelAndView modelAndView
+            , Model model){
+
+        String seqnoarr = request.getParameter("roomSeqnoArr");
+
+        roomService.deleteRoomMaster(seqnoarr);
+
+        HashMap<String,String> paramMap = new HashMap<>();
+        paramMap.put("message","삭제되었습니다.");
+        paramMap.put("href","room");
 //
         model.addAllAttributes(paramMap);
 

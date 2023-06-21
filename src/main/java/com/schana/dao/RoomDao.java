@@ -81,4 +81,8 @@ public class RoomDao {
     public RoomMasterEntity getRoomMaster(String dormitory, int roomnum){
        return roomMasterRepository.findByDormitoryAndRoomnum(dormitory,roomnum);
     }
+
+    public void deleteRoomMater(long rseqno) {
+        roomMasterRepository.deleteById(rseqno);
+    }
 }
