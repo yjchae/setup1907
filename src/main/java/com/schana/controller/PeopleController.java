@@ -72,4 +72,19 @@ public class PeopleController {
         return "success";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/updatepaystatus",method = RequestMethod.GET)
+    public String updatePayStatus(
+            HttpServletRequest request
+            , HttpSession session
+            , Model model)throws Exception{
+
+        String pseqnoArr = request.getParameter("peopleSeqnoArr");
+        //입금액 수정
+        peopleService.updatePayStatus(pseqnoArr);
+
+        return "success";
+    }
+
+
 }

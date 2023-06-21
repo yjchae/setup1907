@@ -36,6 +36,14 @@
                         <th>입금날짜</th>
                         <th>저장</th>
                         <th>입금상태</th>
+                        <th>
+                            <a id="selectMulti" class="btn btn-success btn-icon-split btn-sm" th:onclick="payStatusChange()">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                <span class="text">완료처리</span>
+                            </a>
+                        </th>
                         <th>방배정</th>
                         <th>등록날짜</th>
                         <th>대표인</th>
@@ -81,6 +89,9 @@
                             </a>
                         </td>
                         <td th:text="${people.pay_status}"></td>
+                        <td>
+                            <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${people.seqno}">
+                        </td>
                         <td th:text="${people.room_info}"></td>
                         <td th:text="${people.reg_dt}"></td>
                         <td th:text="${people.people_key_sec}"></td>
@@ -148,6 +159,28 @@
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
 <script type="text/javascript">
+     function payStatusChange(){
+         var peopleSeqnoArr = [];
+         $("input[name=checkbox]:checked").each(function(){
+             var chk = $(this).val();
+             peopleSeqnoArr.push(chk);
+         })
+
+         $.ajax({
+             type : 'GET',           // 타입 (get, post, put 등등)
+             url : '/people/updatepaystatus?peopleSeqnoArr='+peopleSeqnoArr,           // 요청할 서버url
+             // data : {
+             //     "roomSeqnoArr" : roomSeqnoArr
+             // },
+             success : function(data) { // 결과 성공 콜백함수
+                 alert("입금상태 변경 되었습니다.");
+                 location.replace(location.href);
+             },
+             error : function(request, status, error) { // 결과 에러 콜백함수
+                 alert("오류");
+             }
+         })
+     }
 
      function insertPay(peopleseqno){
          if(confirm("입금정보를 저장하시겠습니까?")){

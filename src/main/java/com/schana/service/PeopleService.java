@@ -45,4 +45,16 @@ public class PeopleService {
 
         peopleDao.save(oldpeopleinfo);
     }
+
+    public void updatePayStatus(String pseqnoArr) {
+
+        String[] rseqnoArr = pseqnoArr.split(",");
+        for(String rseqno : rseqnoArr){
+            PeopleEntity oldpeopleinfo = peopleDao.getPeopleMater(Long.parseLong(rseqno));
+
+            oldpeopleinfo.setPay_status("입금완료");
+            peopleDao.save(oldpeopleinfo);
+        }
+
+    }
 }
