@@ -31,7 +31,7 @@ public class ApiController {
 
         HashMap<String,String> paramMap = new HashMap<>();
         paramMap.put("message","참석자 데이터 연동이 완료되었습니다.");
-        paramMap.put("href","reginfo");
+        paramMap.put("href","/index");
 
         model.addAllAttributes(paramMap);
 

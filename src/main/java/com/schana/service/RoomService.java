@@ -5,10 +5,14 @@ import com.schana.dao.PeopleDao;
 import com.schana.dao.RoomDao;
 import com.schana.dto.RoomDto;
 import com.schana.entity.*;
+import org.hibernate.type.descriptor.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -169,11 +173,9 @@ public class RoomService {
     public void createRoom(RoomDto roomDto) {
         int startRoom = Integer.parseInt(roomDto.getStartroom());
         int endRoom = Integer.parseInt(roomDto.getEndroom());
-//        int tmpStartRoom = startRoom;
         roomDto.setStatus("Y");
 
         //시작방번호 종료방번호 차이로 방 생성
-//        for(int i=startRoom ; i <= endRoom ;i++){
         while (startRoom <= endRoom){
             int breaknum=0;
             if(breaknum >100){
@@ -217,6 +219,22 @@ public class RoomService {
         for(String rseqno : rseqnoArr){
             roomDao.deleteRoomMater(Long.parseLong(rseqno));
         }
+    }
+
+    /**
+     * 참석자 지난방 취소 처리
+     */
+    public void deleteOldRoom() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String edymd = now.format(formatter);
+
+        List<RoomEntity> roomList =  roomDao.getRoomListEndymd(edymd);
+
+        for(RoomEntity room : roomList){
+            roomDao.deleteRoom(room);
+        }
+
     }
 
 }

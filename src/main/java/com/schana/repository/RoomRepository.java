@@ -21,6 +21,8 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
 
     List<RoomEntity> findAllByOrderByDormitoryAscRoomnumAsc();
 
+    List<RoomEntity> findByEdymd(String edYmd);
+
     /**
      * 저장된 seqno 호 조회
      * @param seqno

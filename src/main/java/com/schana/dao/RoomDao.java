@@ -32,6 +32,14 @@ public class RoomDao {
         return roomRepository.findAllByOrderByDormitoryAscRoomnumAsc();
     }
 
+    /**
+     * 종료일 기준 방 조회
+     * @return
+     */
+    public List<RoomEntity> getRoomListEndymd(String edYmd){
+        return roomRepository.findByEdymd(edYmd);
+    }
+
     public int chkroom(long peopleseqno){
         return roomRepository.checkMasterseqno(peopleseqno);
     }
