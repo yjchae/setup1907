@@ -10,6 +10,8 @@ import java.util.List;
 public interface PeopleRepository extends JpaRepository<PeopleEntity, Long> {
     PeopleEntity findBySeqno(long seqno);
 
+    PeopleEntity findByPeoplekeyAndName(String peoplekey, String name);
+
 //    List<PeopleEntity> findAllBy();
 
 }

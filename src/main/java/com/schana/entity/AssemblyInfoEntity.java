@@ -14,6 +14,11 @@ public class AssemblyInfoEntity {
 
     @Id
     private Integer peopletotal;
+    private Integer adulttotal;
+    private Integer midhightotal;
+    private Integer chototal;
+    private Integer babytotal;
+
     private Integer useroomtotal;
     private Integer todaypeople;
     private Integer useroom;

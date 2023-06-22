@@ -37,6 +37,10 @@ public class PeopleDao {
         return peopleRepository.findBySeqno(seqno);
     }
 
+    public PeopleEntity getPeopleMaster(String peoplekey, String name) {
+        return peopleRepository.findByPeoplekeyAndName(peoplekey, name);
+    }
+
     public void save(PeopleEntity peopleMaster) {
         peopleRepository.save(peopleMaster);
     }

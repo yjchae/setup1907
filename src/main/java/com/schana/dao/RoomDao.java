@@ -25,7 +25,7 @@ public class RoomDao {
 
     /**
      * 방배정현황조회
-     * @param roomnum
+     * @param
      * @return
      */
     public List<RoomEntity> getRoomList(){

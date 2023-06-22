@@ -13,14 +13,15 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Table(name ="tb_people", indexes = {
         @Index(name="idx__seqno__name", columnList = "seqno, name"),
-        @Index(name="idx__seqno__church", columnList = "seqno, church")
+        @Index(name="idx__seqno__church", columnList = "seqno, church"),
+        @Index(name="idx__seqno__church", columnList = "peoplekey, name")
 })
 public class PeopleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seqno;
-    private String people_key;
+    private String peoplekey;
     private String name;
     private String mobile;
     private String gender;

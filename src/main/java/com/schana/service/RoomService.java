@@ -51,7 +51,7 @@ public class RoomService {
 
     /**
      *  방정보 조회
-     * @param roomstatus
+     * @param
      * @return
      */
     public List<RoomInfoEntity> getRoomInfoList() {

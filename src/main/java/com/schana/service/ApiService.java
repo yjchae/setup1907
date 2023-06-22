@@ -41,7 +41,14 @@ public class ApiService {
         for(int i=1 ; i < jsonArray.length() ; i++){
             JSONArray valueArr = (JSONArray) jsonArray.get(i);
 
-            peopleDao.save(setPeopleData(valueArr));
+            String peopleKey = (String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum());
+            String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
+            PeopleEntity peopleOldInfo = peopleDao.getPeopleMaster(peopleKey,name);
+
+            //기존 등록된 인원은 재등록 하지 않음
+            if(peopleOldInfo == null){
+                peopleDao.save(setPeopleData(valueArr));
+            }
 
         }
     }
@@ -82,7 +89,7 @@ public class ApiService {
     private PeopleEntity setPeopleData(JSONArray valueArr){
         PeopleEntity people = new PeopleEntity();
 
-        people.setPeople_key((String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum()));
+        people.setPeoplekey((String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum()));
         people.setName((String)valueArr.get(PeopleEnum.NAME.getIndexNum()));
         people.setMobile((String)valueArr.get(PeopleEnum.MOBILE.getIndexNum()));
         people.setGender((String)valueArr.get(PeopleEnum.GENDER.getIndexNum()));
