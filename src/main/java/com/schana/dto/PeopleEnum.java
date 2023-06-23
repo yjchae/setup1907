@@ -33,9 +33,9 @@ public enum PeopleEnum {
     ,BICYCLE(23)    //자전거 및 도보
     ,HOW(24)        //알게된경로
     ,PASTOR(25)     //목회자여부
+    ,NORTH_KOREAN(26)     //목회자여부
+    ,LAYMAN(27)     //목회자여부
 
-//    ,NORTH_KOREAN(7)     //탈북민여부
-//    ,LAYMAN(8)     //평신도여부
 //    ,COMPLETE_PAY(24)        //입금금액
 //    ,PAY_DT(25)     //입금일
 //    ,PAY_STATUS(26)     //입금상태

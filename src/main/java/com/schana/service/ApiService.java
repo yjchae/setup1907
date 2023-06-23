@@ -59,7 +59,7 @@ public class ApiService {
      * @throws IOException
      */
     private String getApiData() throws IOException{
-        String stringURL = "https://sheets.googleapis.com/v4/spreadsheets/1hbbwUl0t--HRmzQT2E4x982vWhJECYXdShY76leGWIk/values/A1:Z10000001?key=AIzaSyB6WH0-v6d-EEdo4NK6-qlHG7Ml4jxgL5c";
+        String stringURL = "https://sheets.googleapis.com/v4/spreadsheets/1hbbwUl0t--HRmzQT2E4x982vWhJECYXdShY76leGWIk/values/A1:AB10000001?key=AIzaSyB6WH0-v6d-EEdo4NK6-qlHG7Ml4jxgL5c";
 //        String stringURL = "https://sheets.googleapis.com/v4/spreadsheets/1VpYEm5N4zRY88WyfG7SjHU5XjjA6CZHi-DS-OvuAHow/values/A1:Z10000001?key=AIzaSyDJIksYLqH9tDL30WfLBQfVmZg3dattW18";
         URL url = new URL(stringURL);
         String line;
@@ -123,6 +123,8 @@ public class ApiService {
         people.setHow((String)valueArr.get(PeopleEnum.HOW.getIndexNum()));
 
         people.setPastor((String)valueArr.get(PeopleEnum.PASTOR.getIndexNum()));
+        people.setNorth_korean((String)valueArr.get(PeopleEnum.NORTH_KOREAN.getIndexNum()));
+        people.setLayman((String)valueArr.get(PeopleEnum.LAYMAN.getIndexNum()));
 
         return people;
     }
