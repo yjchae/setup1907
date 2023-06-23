@@ -81,6 +81,10 @@ public class RoomDao {
         return roomInfoRepository.findAllByOrderByStatusAscRoomnumAsc();
     }
 
+    public List<RoomInfoEntity> getRoomInfoListByType(String type){
+        return roomInfoRepository.findByTypeOrderByStatusAscRoomnumAsc(type);
+    }
+
 
     public void creatRoom(RoomMasterEntity roomMasterEntity) {
         roomMasterRepository.save(roomMasterEntity);

@@ -15,4 +15,6 @@ public interface PeopleViewRepository extends JpaRepository<PeopleViewEntity, Lo
 //    List<PeopleViewEntity> findAll(Sort sort);
     List<PeopleViewEntity> findAllByOrderByChurchAscPeoplekeyAsc();
 
+    List<PeopleViewEntity> findByMemberstatusOrderByPeoplekeyAscRoominfoAsc(String type);
+
 }

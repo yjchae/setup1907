@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<!--    <th:block th:if="${#strings.length(session.loginType) != null}">-->
+<!--        <input type="hidden"-->
+<!--           th:value="${session.loginType}" name="logintype" id="logintype">-->
+<!--    </th:block>-->
+
     <th:block th:if="${#strings.length(message) != 0}">
         <script>
             top.alert("[[${message}]]");

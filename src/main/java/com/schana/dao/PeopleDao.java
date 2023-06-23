@@ -23,9 +23,11 @@ public class PeopleDao {
         return peopleRepository.findAll();
     }
     public List<PeopleViewEntity> getPeopleViewList(){
-//        Sort sort = Sort.by(Sort.Order.asc("church"),Sort.Order.asc("peoplekey"));
-//        return peopleViewRepository.findAllByOrderByChurchAscPeoplekeyAsc();
         return peopleViewRepository.findAll(Sort.by(Sort.Order.asc("church"),Sort.Order.asc("peoplekey")));
+    }
+
+    public List<PeopleViewEntity> getPeopleViewListType(String type){
+        return peopleViewRepository.findByMemberstatusOrderByPeoplekeyAscRoominfoAsc(type);
     }
 
 

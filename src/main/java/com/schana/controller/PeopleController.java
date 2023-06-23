@@ -40,10 +40,13 @@ public class PeopleController {
     }
 
     @GetMapping("/listview")
-    public String getPeopleViewInfo(Model model){
+    public String getPeopleViewInfo(Model model, HttpServletRequest request){
         HashMap<String,Object> resultMap = new HashMap<>();
+        HttpSession session = request.getSession();
+        String type = (String)session.getAttribute("logintype");
+
         //등록된 방정보
-        List<PeopleViewEntity> List = peopleService.getPeopleViewList();
+        List<PeopleViewEntity> List = peopleService.getPeopleViewList(type);
         resultMap.put("list",List);
         model.addAllAttributes(resultMap);
 

@@ -24,8 +24,8 @@ public class PeopleViewEntity {
     private Integer complete_pay;
     private String pay_dt;
     private String pay_status;
-    private String room_info;
+    private String roominfo;
     private String allday_yn;
-    private String member_status;
+    private String memberstatus;
     private String day;
 }

@@ -21,9 +21,12 @@ public class PeopleService {
         return peopleDao.getPeopleList();
     }
 
-    public List<PeopleViewEntity> getPeopleViewList(){
-
-        return peopleDao.getPeopleViewList();
+    public List<PeopleViewEntity> getPeopleViewList(String type){
+        if("관리자".equals(type)){
+            return peopleDao.getPeopleViewList();
+        }else{
+            return peopleDao.getPeopleViewListType(type);
+        }
     }
 
     public PeopleViewEntity getPeople(long peopleSeqno) {

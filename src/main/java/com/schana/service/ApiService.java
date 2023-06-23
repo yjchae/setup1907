@@ -123,7 +123,7 @@ public class ApiService {
         people.setHow((String)valueArr.get(PeopleEnum.HOW.getIndexNum()));
 
         people.setPastor((String)valueArr.get(PeopleEnum.PASTOR.getIndexNum()));
-        people.setNorth_korean((String)valueArr.get(PeopleEnum.NORTH_KOREAN.getIndexNum()));
+        people.setNorthkorean((String)valueArr.get(PeopleEnum.NORTH_KOREAN.getIndexNum()));
         people.setLayman((String)valueArr.get(PeopleEnum.LAYMAN.getIndexNum()));
 
         return people;

@@ -54,12 +54,12 @@ public class RoomService {
      * @param
      * @return
      */
-    public List<RoomInfoEntity> getRoomInfoList() {
-        List<RoomInfoEntity> roomlist = new ArrayList<>();
-
-        roomlist = roomDao.getRoomInfoList();
-
-        return roomlist;
+    public List<RoomInfoEntity> getRoomInfoList(String type) {
+        if("관리자".equals(type)){
+            return roomDao.getRoomInfoList();
+        }else{
+            return roomDao.getRoomInfoListByType(type);
+        }
     }
 
 
@@ -116,7 +116,7 @@ public class RoomService {
         roomEntity.setDormitory(roomMaster.getDormitory());
 
         String result = "";
-        if(roomMaster.getType().equals(people.getMember_status())
+        if(roomMaster.getType().equals(people.getMemberstatus())
                 || push.equals("push")){
             if(oldRoomInfo == null){
                 roomDao.saveRoom(roomEntity);
@@ -126,7 +126,7 @@ public class RoomService {
                 roomDao.saveRoom(oldRoomInfo);
             }
 
-            peopleMaster.setRoom_info(roomMaster.getDormitory()+roomMaster.getRoomnum());
+            peopleMaster.setRoominfo(roomMaster.getDormitory()+roomMaster.getRoomnum());
             peopleDao.save(peopleMaster);
 
             result = "success";

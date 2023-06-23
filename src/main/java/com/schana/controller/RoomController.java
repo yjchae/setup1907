@@ -45,10 +45,15 @@ public class RoomController {
     }
 
     @GetMapping("/listmaster")
-    public String getRoomMasterInfo(Model model){
+    public String getRoomMasterInfo(Model model
+                                    ,HttpServletRequest request
+                                    ){
+
+        HttpSession session = request.getSession();
+        String type = (String)session.getAttribute("logintype");
 
         //등록된 방정보
-        List<RoomInfoEntity> roomList = roomService.getRoomInfoList();
+        List<RoomInfoEntity> roomList = roomService.getRoomInfoList(type);
 
         HashMap<String,List<RoomInfoEntity>> resultMap = new HashMap<>();
 
@@ -66,11 +71,13 @@ public class RoomController {
 
         Long peopleSeqno  = peopleViewEntity.getSeqno();
 
+        HttpSession session = request.getSession();
+        String type = (String)session.getAttribute("logintype");
+
         String peopleSeqArr = request.getParameter("seqno_arr");
 
-        //String ss = request.getParameter("seqno");
         //등록가능한 방정보
-        List<RoomInfoEntity> roomList = roomService.getRoomInfoList();
+        List<RoomInfoEntity> roomList = roomService.getRoomInfoList(type);
 
         HashMap<String,Object> resultMap = new HashMap<>();
         resultMap.put("roomlist",roomList);

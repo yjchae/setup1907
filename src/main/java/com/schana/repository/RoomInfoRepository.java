@@ -10,4 +10,6 @@ import java.util.List;
 public interface RoomInfoRepository extends JpaRepository<RoomInfoEntity, Long> {
 
     List<RoomInfoEntity> findAllByOrderByStatusAscRoomnumAsc();
+
+    List<RoomInfoEntity> findByTypeOrderByStatusAscRoomnumAsc(String type);
 }

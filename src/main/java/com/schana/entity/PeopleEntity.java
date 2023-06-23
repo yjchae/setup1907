@@ -32,7 +32,7 @@ public class PeopleEntity {
     private Integer complete_pay;
     private String pay_dt;
     private String pay_status;
-    private String room_info;
+    private String roominfo;
     private String reg_dt;
     private String people_key_sec;
     private String mon;
@@ -46,7 +46,7 @@ public class PeopleEntity {
     private String bicycle;
     private String how;
     private String pastor;
-    private String north_korean;
+    private String northkorean;
     private String layman;
     private String allday_yn;
     private Integer with_adult_man;

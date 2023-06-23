@@ -55,7 +55,7 @@
                             <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${people.seqno}">
                         </td>
                         <td>
-                            <div th:if ="${people.room_info==null}">
+                            <div th:if ="${people.roominfo==null}">
                                 <a id="selectRoom" class="btn btn-success btn-icon-split btn-sm" th:onclick="userDetail([[${people.seqno}]])">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
@@ -63,7 +63,7 @@
                                     <span class="text">방배정</span>
                                 </a>
                             </div>
-                            <div th:unless="${people.room_info==null}">
+                            <div th:unless="${people.roominfo==null}">
                                 <a id="updateRoom" class="btn btn-secondary btn-icon-split btn-sm" th:onclick="userDetail([[${people.seqno}]])">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
@@ -75,8 +75,8 @@
                         <td th:text="${people.seqno}"></td>
                         <td th:text="${people.peoplekey}"></td>
                         <td th:text="${people.name}"></td>
-                        <td th:text="${people.room_info}"></td>
-                        <td th:text="${people.member_status}"></td>
+                        <td th:text="${people.roominfo}"></td>
+                        <td th:text="${people.memberstatus}"></td>
                         <td th:text="${people.mobile}"></td>
                         <td th:text="${people.gender}"></td>
                         <td th:text="${people.age}"></td>
