@@ -69,19 +69,33 @@
                 <span>방배정 현황</span></a>
         </li>
 
+        <th:block th:if="${session.logintype == '관리자'}">
         <li class="nav-item">
             <a class="nav-link" href="/room/reginfo">
                 <i class="fas fa-fw fa-table"></i>
                 <span>방생성</span></a>
         </li>
+        </th:block>
 
 <!--        <li class="nav-item" style="vertical-align: center">-->
         <hr class="sidebar-divider d-none d-md-block">
+
         <div class="text-center d-none d-md-inline">
             <form action="/api/getPeopleApi" method="post">
                 <button type="submit" class="btn btn-success">참석자 동기화</button>
             </form>
         </div>
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <div class="text-center d-none d-md-inline">
+            <a id="logout" class="btn btn-dark btn-icon-split btn-sm" href="/index">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                <span class="text">LOG OUT</span>
+            </a>
+        </div>
+
 <!--        </li>-->
 
         <!-- Divider -->
