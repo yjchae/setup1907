@@ -44,6 +44,8 @@ public class PeopleController {
         HashMap<String,Object> resultMap = new HashMap<>();
         HttpSession session = request.getSession();
         String type = (String)session.getAttribute("logintype");
+        String filtertext = (String)session.getAttribute("filtertext");
+        session.setAttribute("filtertext","");
 
         //등록된 방정보
         List<PeopleViewEntity> List = peopleService.getPeopleViewList(type);
@@ -52,6 +54,7 @@ public class PeopleController {
 
         PeopleViewEntity peopleViewEntity = new PeopleViewEntity();
         model.addAttribute("peopleViewEntity",peopleViewEntity);
+        model.addAttribute("filtertext",filtertext);
 
 
 //        List<RoomMasterEntity> roomlist = roomService.getRoomMasterList("Y");

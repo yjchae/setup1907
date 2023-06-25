@@ -56,12 +56,13 @@
         </div>
 
         <!-- Nav Item - Charts -->
+        <th:block th:if="${session.logintype == '관리자'}">
         <li class="nav-item">
             <a class="nav-link" href="/room/listmaster">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>방정보 조회 - master</span></a>
         </li>
-
+        </th:block>
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/room/list">

@@ -3,7 +3,7 @@
 <head th:replace="~{fragment/header :: headerFragment}">
 </head>
 <body id="page-top">
-
+<input type="hidden" id="filtertext" th:value="${filtertext}">
 <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" th:replace="~{fragment/menu ::menuFragment}">
@@ -137,28 +137,42 @@
 <script src="/js/demo/datatables-demo.js"></script>
 <script type="text/javascript" >
     var popup;
+    var filter;
+    var table ;
     function userDetail(seqno){
-        popup = window.open('/room/selectroom?seqno='+seqno, '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
 
-        popup.addEventListener('beforeunload', function(){
-            location.replace(location.href);
-        });
+        table =$('#dataTable').DataTable();
+        filter = table.search(this.value);
+
+        popup = window.open(encodeURI('/room/selectroom?seqno='+seqno+'&filtertext='+filter), '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
+
+        // popup.addEventListener('beforeunload', function(){
+        //     $('#dataTable').DataTable().search($('#filtertext').val()).draw();
+        // });
+
     }
 
     function userDetailMulti(){
         var seqno_arr = [];
+        table =$('#dataTable').DataTable();
+        filter = table.search(this.value);
+
         $("input[name=checkbox]:checked").each(function(){
             var chk = $(this).val();
             seqno_arr.push(chk);
         })
 
-        popup = window.open('/room/selectroom?seqno_arr='+seqno_arr, '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
+        popup = window.open('/room/selectroom?seqno_arr='+seqno_arr+'&filtertext='+filter, '방배정팝업', 'width=800px,height=700px,scrollbars=yes');
 
-        popup.addEventListener('beforeunload', function(){
-            location.replace(location.href);
-        });
-
+        // popup.addEventListener('beforeunload', function(){
+        //     $('#dataTable').DataTable().search($('#filtertext').val()).draw();
+        // });
     }
+
+    $(document).ready(function(){
+        $('#dataTable').DataTable().search($('#filtertext').val()).draw();
+    });
+
 </script>
 </body>
 </html>

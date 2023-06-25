@@ -67,11 +67,13 @@ public class RoomController {
     @GetMapping(value = "/selectroom")
     public String getRoom(@ModelAttribute PeopleViewEntity peopleViewEntity
                           ,HttpServletRequest request
+                          ,HttpSession session1
                           ,Model model)throws Exception{
 
         Long peopleSeqno  = peopleViewEntity.getSeqno();
 
         HttpSession session = request.getSession();
+        session1.setAttribute("filtertext",request.getParameter("filtertext"));
         String type = (String)session.getAttribute("logintype");
 
         String peopleSeqArr = request.getParameter("seqno_arr");

@@ -58,6 +58,8 @@
 <script src="/js/demo/datatables-demo.js"></script>
 <script type="text/javascript">
     function roomSave(rseqno,pseqno,pseqnoarr){
+        var filtertmp =$('#filtertext',opener.document).val();
+
         if(confirm("저장하시겠습니까?")){
             // location.href = '/room/save?rseqno='+rseqno+'&pseqno='+pseqno;
             // window.close();
@@ -74,7 +76,11 @@
                 success : function(data) { // 결과 성공 콜백함수
                     if(data == "success"){
                         alert("저장되었습니다.");
+                        // $('#filtertext',opener.document).val();
+                        opener.location.reload();
+                        // $('#filtertext',opener.document).val();
                         window.close();
+
                     }else if(data == "else"){
                         if(confirm("방타입이 다릅니다. 계속 저장하시겠습니까?")){
                             $.ajax({
@@ -90,19 +96,20 @@
                                 success : function(data) {
                                     if(data == "success"){
                                         alert("저장되었습니다.");
+                                        opener.location.reload();
+
+                                        // $("#filtertext",opener.document).val(filtertmp);
+
+                                        // $('#filtertext',opener.document).val();
                                         window.close();
                                     }
                                 },
                                 error : function(request, status, error) { // 결과 에러 콜백함수
                                     alert("오류");
                                 }
-
                             })
                         }
                     }
-
-
-
                 },
                 error : function(request, status, error) { // 결과 에러 콜백함수
                     alert("오류");

@@ -23,12 +23,13 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
+
                         <th>
                             <a id="selectMulti" class="btn btn-danger btn-icon-split btn-sm" th:onclick="roomDelete()">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-trash"></i>
                                 </span>
-                                                                <span class="text">선택삭제</span>
+                                <span class="text">선택삭제</span>
                             </a>
                         </th>
                         <th>idx</th>
@@ -41,9 +42,11 @@
                     </thead>
                     <tbody>
                     <tr th:each="room : ${roomlist}">
+                        <th:block th:if="${session.logintype == '관리자'}">
                         <td>
                             <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${room.seqno}">
                         </td>
+                        </th:block>
                         <td th:text="${room.seqno}"></td>
                         <td th:text="${room.dormitory}"></td>
                         <td th:text="${room.roomnum}"></td>
