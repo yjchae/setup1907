@@ -79,7 +79,7 @@ public class RoomController {
         String peopleSeqArr = request.getParameter("seqno_arr");
 
         //등록가능한 방정보
-        List<RoomInfoEntity> roomList = roomService.getRoomInfoList(type);
+        List<RoomInfoEntity> roomList = roomService.getRoomTypeList(type);
 
         HashMap<String,Object> resultMap = new HashMap<>();
         resultMap.put("roomlist",roomList);
@@ -129,6 +129,14 @@ public class RoomController {
     }
 
 
+    /**
+     * 방배정 취소
+     * @param request
+     * @param session
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @ResponseBody
     @RequestMapping(value = "/deleteroom",method = RequestMethod.GET)
     public String deleteRoom(
@@ -138,8 +146,27 @@ public class RoomController {
 
         String seqno  = request.getParameter("seqno");   //seqno
 
-
         return roomService.deleteRoom(seqno);
+    }
+
+    /**
+     * 다중 방배정 취소
+     * @param request
+     * @param session
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/multiDeleteroom",method = RequestMethod.GET)
+    public String multiDeleteRoom(
+            HttpServletRequest request
+            , HttpSession session
+            , Model model)throws Exception{
+
+        String seqnoArr = request.getParameter("roomSeqnoArr");
+
+        return roomService.multiDeleteRoom(seqnoArr);
     }
 
     @GetMapping("/reginfo")

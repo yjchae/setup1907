@@ -23,6 +23,14 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
+                        <td>
+                            <a id="selectMulti" class="btn btn-danger btn-icon-split btn-sm" th:onclick="multiCancelRoom()">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span class="text">선택삭제</span>
+                            </a>
+                        </td>
                         <th>구분</th>
                         <th>idx</th>
                         <th>사람key</th>
@@ -35,6 +43,9 @@
                     </thead>
                     <tbody>
                     <tr th:each="room : ${roomlist}">
+                        <td>
+                            <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${room.seqno}">
+                        </td>
                         <td>
 <!--                            <input type="checkbox" th:value="${room.seqno}">-->
                             <a id="deleteRoom" class="btn btn-danger btn-circle btn-sm" th:onclick="deleteRoom([[${room.seqno}]])">
@@ -117,6 +128,32 @@
         }
     }
 
+    function multiCancelRoom(){
+        if(confirm("선택한 방을 삭제하시겠습니까?")){
+            var roomSeqnoArr = [];
+            $("input[name=checkbox]:checked").each(function(){
+                var chk = $(this).val();
+                roomSeqnoArr.push(chk);
+            })
+
+            $.ajax({
+                type : 'GET',           // 타입 (get, post, put 등등)
+                url : '/room/multiDeleteroom?roomSeqnoArr='+roomSeqnoArr,           // 요청할 서버url
+                // data : {
+                //     "roomSeqnoArr" : roomSeqnoArr
+                // },
+                success : function(data) { // 결과 성공 콜백함수
+                    alert("취소 되었습니다.");
+                    location.replace(location.href);
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    alert("오류");
+                }
+            })
+        }
+    }
+
 </script>
+
 </body>
 </html>

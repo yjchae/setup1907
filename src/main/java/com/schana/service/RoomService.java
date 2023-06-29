@@ -62,6 +62,19 @@ public class RoomService {
         }
     }
 
+    /**
+     *  방정보 조회
+     * @param
+     * @return
+     */
+    public List<RoomInfoEntity> getRoomTypeList(String type) {
+        if("관리자".equals(type)){
+            return roomDao.getRoomTypeList("한국성도","탈북민");
+        }else{
+            return roomDao.getRoomInfoListByType(type);
+        }
+    }
+
 
     /**
      * 방배정 저장
@@ -167,6 +180,15 @@ public class RoomService {
     public String deleteRoom(String seqno) {
         RoomEntity roominfo = roomDao.getRoomInfo(Long.parseLong(seqno));
         roomDao.deleteRoom(roominfo);
+        return "success";
+    }
+
+    public String multiDeleteRoom(String seqnoArr) {
+        String[] rseqnoArr = seqnoArr.split(",");
+        for(String seqno : rseqnoArr){
+            RoomEntity roominfo = roomDao.getRoomInfo(Long.parseLong(seqno));
+            roomDao.deleteRoom(roominfo);
+        }
         return "success";
     }
 

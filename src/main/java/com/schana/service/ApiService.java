@@ -128,4 +128,9 @@ public class ApiService {
 
         return people;
     }
+
+    public void setPeople(PeopleEntity peopleEntity) {
+
+        peopleDao.save(peopleEntity);
+    }
 }
