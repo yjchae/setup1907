@@ -43,6 +43,7 @@ public class ApiService {
 
             String peopleKey = (String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum());
             String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
+
             PeopleEntity peopleOldInfo = peopleDao.getPeopleMaster(peopleKey,name);
 
             //기존 등록된 인원은 재등록 하지 않음
@@ -110,12 +111,31 @@ public class ApiService {
         people.setReg_dt((String)valueArr.get(PeopleEnum.REG_DT.getIndexNum()));
         people.setPeople_key_sec((String)valueArr.get(PeopleEnum.PEOPLE_KEY_SEC.getIndexNum()));
 
-        people.setMon((String)valueArr.get(PeopleEnum.MON.getIndexNum()));
-        people.setTue((String)valueArr.get(PeopleEnum.TUE.getIndexNum()));
-        people.setWed((String)valueArr.get(PeopleEnum.WED.getIndexNum()));
-        people.setThu((String)valueArr.get(PeopleEnum.THU.getIndexNum()));
-        people.setFri((String)valueArr.get(PeopleEnum.FRI.getIndexNum()));
-        people.setSat((String)valueArr.get(PeopleEnum.SAT.getIndexNum()));
+        String mon = (String)valueArr.get(PeopleEnum.MON.getIndexNum());
+        String tue = (String)valueArr.get(PeopleEnum.TUE.getIndexNum());
+        String wed = (String)valueArr.get(PeopleEnum.WED.getIndexNum());
+        String thu = (String)valueArr.get(PeopleEnum.THU.getIndexNum());
+        String fri = (String)valueArr.get(PeopleEnum.FRI.getIndexNum());
+        String sat = (String)valueArr.get(PeopleEnum.SAT.getIndexNum());
+
+        people.setMon(mon);
+        people.setTue(tue);
+        people.setWed(wed);
+        people.setThu(thu);
+        people.setFri(fri);
+        people.setSat(sat);
+
+        if(mon.equals("TRUE")
+                && tue.equals("TRUE")
+                && wed.equals("TRUE")
+                && thu.equals("TRUE")
+                && fri.equals("TRUE")
+                && sat.equals("TRUE")
+        ){
+            people.setAllday_yn("전참");
+        }else{
+            people.setAllday_yn("부분참석");
+        }
 
         people.setCar((String)valueArr.get(PeopleEnum.CAR.getIndexNum()));
         people.setBus((String)valueArr.get(PeopleEnum.BUS.getIndexNum()));

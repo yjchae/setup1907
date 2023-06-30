@@ -23,7 +23,7 @@ public class RoomService {
     @Autowired
     private PeopleDao peopleDao;
 
-    public List<RoomEntity> getRoomList() {
+    public List<RoomEntity> getRoomList(String type) {
         //TODO : DTO 와 entity 간의 데이터 핸들러 추가
 //        List<RoomDto> roomDtoList = new ArrayList<>();
 //
@@ -31,10 +31,8 @@ public class RoomService {
 //        for(int i =0 ; i<roomList.size(); i++){
 //            roomDtoList.set(i, RoomDto.builder().roomEntity(roomList.get(i)).build());
 //        }
-
-
-
         return roomDao.getRoomList();
+
     }
 
     public List<RoomMasterEntity> getRoomMasterList(String roomstatus) {

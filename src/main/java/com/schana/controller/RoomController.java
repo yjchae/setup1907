@@ -32,10 +32,12 @@ public class RoomController {
     private PeopleService peopleService;
 
     @GetMapping("/list")
-    public String getRoomInfo(Model model){
+    public String getRoomInfo(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String type = (String)session.getAttribute("logintype");
 
         //등록된 방정보
-        List<RoomEntity> roomList = roomService.getRoomList();
+        List<RoomEntity> roomList = roomService.getRoomList(type);
 
         HashMap<String,List<RoomEntity>> resultMap = new HashMap<>();
         resultMap.put("roomlist",roomList);
