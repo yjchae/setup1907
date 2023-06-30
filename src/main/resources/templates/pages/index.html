@@ -6,10 +6,10 @@
 
 <body id="page-top">
 
-<input type="hidden" id="adulttotal" th:value="${assemblyinfoDto.adulttotal}">
-<input type="hidden" id="midhightotal" th:value="${assemblyinfoDto.midhightotal}">
-<input type="hidden" id="chototal" th:value="${assemblyinfoDto.chototal}">
-<input type="hidden" id="babytotal" th:value="${assemblyinfoDto.babytotal}">
+<!--<input type="hidden" id="adulttotal" th:value="${assemblyinfoDto.adulttotal}">-->
+<!--<input type="hidden" id="midhightotal" th:value="${assemblyinfoDto.midhightotal}">-->
+<!--<input type="hidden" id="chototal" th:value="${assemblyinfoDto.chototal}">-->
+<!--<input type="hidden" id="babytotal" th:value="${assemblyinfoDto.babytotal}">-->
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -282,6 +282,23 @@
 <!--                        </div>-->
 <!--                    </div>-->
                 </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-auto">
+
+                        <!-- Bar Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">일자별 참석인원</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar">
+                                    <canvas id="myBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
 
 
@@ -395,6 +412,101 @@
 <!-- Page level custom scripts -->
 <script src="/js/demo/chart-area-demo.js"></script>
 <script src="/js/demo/chart-pie-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById("myBarChart");
+
+    var moncnt = [[${peopleDto.moncount}]];
+    var tuecnt = [[${peopleDto.tuecount}]];
+    var wedcnt = [[${peopleDto.wedcount}]];
+    var thucnt = [[${peopleDto.thucount}]];
+    var fricnt = [[${peopleDto.fricount}]];
+    var satcnt = [[${peopleDto.satcount}]];
+
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["월", "화", "수", "목", "금", "토"],
+            datasets: [{
+                label: "참석인원수",
+                backgroundColor: "#4e73df",
+                hoverBackgroundColor: "#2e59d9",
+                borderColor: "#4e73df",
+                data: [moncnt, tuecnt, wedcnt, thucnt, fricnt, satcnt],
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'month'
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    },
+                    maxBarThickness: 25,
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 15000,
+                        maxTicksLimit: 5,
+                        padding: 10,
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return '$' + number_format(value);
+                        }
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+                callbacks: {
+                    label: function(tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                        return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                    }
+                }
+            },
+        }
+    });
+
+
+
+</script>
 <!--<script type="text/javascript">-->
 <!--    function insertpeople(){-->
 
@@ -436,48 +548,7 @@
 <!--        })-->
 <!--    }-->
 <!--</script>-->
-<!--<script type="text/javascript">-->
 
-<!--    // Pie Chart Example-->
-<!--    var ctx = document.getElementById("peoplePieChart");-->
-
-<!--    var adulttotal = $("#adulttotal").val();-->
-<!--    var midhightotal = $("#midhightotal").val();-->
-<!--    var chototal = $("#chototal").val();-->
-<!--    var babytotal = $("#babytotal").val();-->
-
-<!--    var myPieChart = new Chart(ctx, {-->
-<!--        type: 'doughnut',-->
-<!--        data: {-->
-<!--            labels: ["성인", "중.고등학생", "초등학생", "유치부"],-->
-<!--            datasets: [{-->
-<!--                data: [adulttotal, midhightotal, chototal, babytotal],-->
-<!--                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#c81c8f'],-->
-<!--                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#17a673'],-->
-<!--                hoverBorderColor: "rgba(234, 236, 244, 1)",-->
-<!--            }],-->
-<!--        },-->
-<!--        options: {-->
-<!--            maintainAspectRatio: false,-->
-<!--            tooltips: {-->
-<!--                backgroundColor: "rgb(255,255,255)",-->
-<!--                bodyFontColor: "#858796",-->
-<!--                borderColor: '#dddfeb',-->
-<!--                borderWidth: 1,-->
-<!--                xPadding: 15,-->
-<!--                yPadding: 15,-->
-<!--                displayColors: false,-->
-<!--                caretPadding: 10,-->
-<!--            },-->
-<!--            legend: {-->
-<!--                display: false-->
-<!--            },-->
-<!--            cutoutPercentage: 80,-->
-<!--        },-->
-<!--    });-->
-
-
-<!--</script>-->
 </body>
 
 </html>

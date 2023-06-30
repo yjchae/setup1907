@@ -1,9 +1,11 @@
 package com.schana.controller;
 
 import com.schana.dto.LoginDto;
+import com.schana.dto.PeopleDto;
 import com.schana.entity.AssemblyInfoEntity;
 import com.schana.service.AssemblyService;
 import com.schana.service.CommonService;
+import com.schana.service.PeopleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -31,6 +33,9 @@ public class MainController {
     @Autowired
     private CommonService commonService;
 
+    @Autowired
+    private PeopleService peopleService;
+
     @GetMapping("/dashboard")
     public String mainIndex(Model model
                            ,HttpServletRequest request
@@ -39,7 +44,12 @@ public class MainController {
         HttpSession session = request.getSession();
         String type = (String)session.getAttribute("logintype");
         AssemblyInfoEntity assemblyinfo = assemblyService.getAssemblyInfo();
+        PeopleDto peopleDto = peopleService.getPeopleDayCnt();
+
         model.addAttribute("assemblyinfoDto",assemblyinfo);
+        model.addAttribute("peopleDto",peopleDto);
+
+
 
         return "pages/index";
     }
