@@ -27,5 +27,7 @@ public class AssemblyInfoEntity {
     private Integer cho;
     private Integer baby;
     private Integer emptyroom;
+    private Integer alldaypeoplecnt;
+    private Integer partdaypeoplecnt;
 
 }
