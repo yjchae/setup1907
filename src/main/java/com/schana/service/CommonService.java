@@ -2,10 +2,14 @@ package com.schana.service;
 
 
 import com.schana.dao.CommonDao;
+import com.schana.dto.AdminMemberDto;
 import com.schana.dto.LoginDto;
 import com.schana.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Member;
+import java.util.List;
 
 @Service
 public class CommonService {
@@ -31,5 +35,18 @@ public class CommonService {
 
             return login;
         }
+    }
+
+    public void createAdmin(AdminMemberDto adminMemberDto) {
+        MemberEntity member = new MemberEntity();
+        member.setId(adminMemberDto.getName());
+        member.setPassword(adminMemberDto.getPassword());
+        member.setTypename(adminMemberDto.getAuth());
+
+        commonDao.saveMember(member);
+    }
+
+    public List<MemberEntity> getMemberList() {
+        return commonDao.getmemberList();
     }
 }

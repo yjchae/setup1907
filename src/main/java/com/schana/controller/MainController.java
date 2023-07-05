@@ -1,8 +1,13 @@
 package com.schana.controller;
 
+import com.schana.dto.AdminMemberDto;
 import com.schana.dto.LoginDto;
 import com.schana.dto.PeopleDto;
+import com.schana.dto.RoomDto;
 import com.schana.entity.AssemblyInfoEntity;
+import com.schana.entity.MemberEntity;
+import com.schana.entity.PeopleViewEntity;
+import com.schana.entity.RoomInfoEntity;
 import com.schana.service.AssemblyService;
 import com.schana.service.CommonService;
 import com.schana.service.PeopleService;
@@ -86,6 +91,67 @@ public class MainController {
         model.addAllAttributes(paramMap);
 
         return "pages/message";
+    }
+
+    /**
+     * 관리자등록
+     * @param model
+     * @return
+     */
+    @GetMapping("/regAdmin")
+    public String regAdmin(Model model){
+
+        model.addAttribute("adminMemberDto",new AdminMemberDto());
+        return "pages/makeMember";
+    }
+
+    /**
+     * 관리자 등록
+     * @param adminMemberDto
+     * @param modelAndView
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/makeAdmin" ,method = RequestMethod.POST)
+    public String makeRoom(
+            @ModelAttribute("adminMemberDto") AdminMemberDto adminMemberDto
+            , ModelAndView modelAndView
+            , Model model){
+
+        commonService.createAdmin(adminMemberDto);
+
+        HashMap<String,String> paramMap = new HashMap<>();
+        paramMap.put("message","저장되었습니다.");
+        paramMap.put("href","regAdmin");
+//
+        model.addAllAttributes(paramMap);
+
+        return "pages/message";
+    }
+
+    /**
+     * 관리자 조회
+     * @param peopleViewEntity
+     * @param request
+     * @param session1
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "/viewMember")
+    public String getRoom(HttpServletRequest request
+            ,HttpSession session1
+            ,Model model)throws Exception{
+
+        //등록가능한 방정보
+        List<MemberEntity> memberList = commonService.getMemberList();
+
+        HashMap<String,Object> resultMap = new HashMap<>();
+        resultMap.put("memberList",memberList);
+
+        model.addAllAttributes(resultMap);
+
+        return "pages/viewMember";
     }
     
 }
