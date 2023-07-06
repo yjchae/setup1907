@@ -131,7 +131,6 @@ public class MainController {
 
     /**
      * 관리자 조회
-     * @param peopleViewEntity
      * @param request
      * @param session1
      * @param model

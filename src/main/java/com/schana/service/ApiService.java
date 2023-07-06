@@ -45,10 +45,32 @@ public class ApiService {
             String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
 
             PeopleEntity peopleOldInfo = peopleDao.getPeopleMaster(peopleKey,name);
+            PeopleEntity people = setPeopleData(valueArr);
 
-            //기존 등록된 인원은 재등록 하지 않음
-            if(peopleOldInfo == null){
-                peopleDao.save(setPeopleData(valueArr));
+            if(peopleOldInfo == null) {
+                //신규 참석자 등록
+                peopleDao.save(people);
+            }else{
+                //기존 참석자 업데이트
+                peopleOldInfo.setAllday_yn(people.getAllday_yn());
+                peopleOldInfo.setPay_dt(people.getPay_dt());
+                peopleOldInfo.setChurch(people.getChurch());
+                peopleOldInfo.setMobile(people.getMobile());
+                peopleOldInfo.setMon(people.getMon());
+                peopleOldInfo.setTue(people.getTue());
+                peopleOldInfo.setWed(people.getWed());
+                peopleOldInfo.setThu(people.getThu());
+                peopleOldInfo.setFri(people.getFri());
+                peopleOldInfo.setSat(people.getSat());
+                peopleOldInfo.setLayman(people.getLayman());
+                peopleOldInfo.setNorthkorean(people.getNorthkorean());
+                peopleOldInfo.setPastor(people.getPastor());
+
+                if(peopleOldInfo.getComplete_pay()==0){
+                    peopleOldInfo.setComplete_pay(people.getComplete_pay());
+                }
+
+                peopleDao.save(peopleOldInfo);
             }
 
         }
