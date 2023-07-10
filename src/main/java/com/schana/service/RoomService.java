@@ -127,8 +127,13 @@ public class RoomService {
         roomEntity.setDormitory(roomMaster.getDormitory());
 
         String result = "";
-        if(roomMaster.getType().equals(people.getMemberstatus())
-                || push.equals("push")){
+
+
+        //방타입이 다르거나, 빈방 인경우 바로 저장 아닌경우 한번더 물음
+        if((roomMaster.getType().equals(people.getMemberstatus())
+                && roomDao.countRoom(roomEntity) == 0)
+                || push.equals("push")
+                ){
             if(oldRoomInfo == null){
                 roomDao.saveRoom(roomEntity);
             }else{
@@ -142,7 +147,11 @@ public class RoomService {
 
             result = "success";
         }else{
-            result = "else";
+            if(roomDao.countRoom(roomEntity)>0){
+                result = "overcount";
+            }else{
+                result = "else";
+            }
         }
 
         return result;

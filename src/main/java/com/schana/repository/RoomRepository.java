@@ -37,4 +37,5 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
      */
     RoomEntity findByMasterseqno(long pseqno);
 
+    List<RoomEntity> findByRoomnumAndDormitory(int roomnum, String dormitory);
 }

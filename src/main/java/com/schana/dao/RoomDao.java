@@ -9,6 +9,7 @@ import com.schana.repository.RoomMasterRepository;
 import com.schana.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -101,4 +102,14 @@ public class RoomDao {
     public void deleteRoomMater(long rseqno) {
         roomMasterRepository.deleteById(rseqno);
     }
+
+    /**
+     * 빈방 여부 체크
+     * @param roomEntity
+     * @return
+     */
+    public int countRoom(RoomEntity roomEntity){
+        return roomRepository.findByRoomnumAndDormitory(roomEntity.getRoomnum(),roomEntity.getDormitory()).size();
+    }
+
 }
