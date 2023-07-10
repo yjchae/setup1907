@@ -10,6 +10,8 @@ import com.schana.entity.PeopleEntity;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.List;
 
 @Service
 public class ApiService {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ApiDao apiDao;
@@ -39,39 +42,46 @@ public class ApiService {
         JSONArray jsonArray =(JSONArray) jsonObj.get("values");
 
         for(int i=1 ; i < jsonArray.length() ; i++){
-            JSONArray valueArr = (JSONArray) jsonArray.get(i);
 
-            String peopleKey = (String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum());
-            String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
 
-            PeopleEntity peopleOldInfo = peopleDao.getPeopleMaster(peopleKey,name);
-            PeopleEntity people = setPeopleData(valueArr);
+                JSONArray valueArr = (JSONArray) jsonArray.get(i);
 
-            if(peopleOldInfo == null) {
-                //신규 참석자 등록
-                peopleDao.save(people);
-            }else{
-                //기존 참석자 업데이트
-                peopleOldInfo.setAllday_yn(people.getAllday_yn());
-                peopleOldInfo.setPay_dt(people.getPay_dt());
-                peopleOldInfo.setChurch(people.getChurch());
-                peopleOldInfo.setMobile(people.getMobile());
-                peopleOldInfo.setMon(people.getMon());
-                peopleOldInfo.setTue(people.getTue());
-                peopleOldInfo.setWed(people.getWed());
-                peopleOldInfo.setThu(people.getThu());
-                peopleOldInfo.setFri(people.getFri());
-                peopleOldInfo.setSat(people.getSat());
-                peopleOldInfo.setLayman(people.getLayman());
-                peopleOldInfo.setNorthkorean(people.getNorthkorean());
-                peopleOldInfo.setPastor(people.getPastor());
+                String peopleKey = (String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum());
+                String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
 
-                if(peopleOldInfo.getComplete_pay()==0){
-                    peopleOldInfo.setComplete_pay(people.getComplete_pay());
+                if(!peopleKey.isEmpty()){
+                    PeopleEntity peopleOldInfo = peopleDao.getPeopleMaster(peopleKey,name);
+                    PeopleEntity people = setPeopleData(valueArr);
+
+                    if(peopleOldInfo == null) {
+                        //신규 참석자 등록
+                        peopleDao.save(people);
+
+                    }else{
+                        //기존 참석자 업데이트
+                        peopleOldInfo.setAllday_yn(people.getAllday_yn());
+                        peopleOldInfo.setPay_dt(people.getPay_dt());
+                        peopleOldInfo.setChurch(people.getChurch());
+                        peopleOldInfo.setMobile(people.getMobile());
+                        peopleOldInfo.setMon(people.getMon());
+                        peopleOldInfo.setTue(people.getTue());
+                        peopleOldInfo.setWed(people.getWed());
+                        peopleOldInfo.setThu(people.getThu());
+                        peopleOldInfo.setFri(people.getFri());
+                        peopleOldInfo.setSat(people.getSat());
+                        peopleOldInfo.setLayman(people.getLayman());
+                        peopleOldInfo.setNorthkorean(people.getNorthkorean());
+                        peopleOldInfo.setPastor(people.getPastor());
+
+                        if(peopleOldInfo.getComplete_pay()==0){
+                            peopleOldInfo.setComplete_pay(people.getComplete_pay());
+                        }
+
+                        peopleDao.save(peopleOldInfo);
+                    }
                 }
 
-                peopleDao.save(peopleOldInfo);
-            }
+
 
         }
     }
@@ -116,18 +126,35 @@ public class ApiService {
         people.setName((String)valueArr.get(PeopleEnum.NAME.getIndexNum()));
         people.setMobile((String)valueArr.get(PeopleEnum.MOBILE.getIndexNum()));
         people.setGender((String)valueArr.get(PeopleEnum.GENDER.getIndexNum()));
-        people.setAge(Integer.parseInt((String)valueArr.get(PeopleEnum.AGE.getIndexNum())));
+
+        String agetmp = ((String) valueArr.get(PeopleEnum.AGE.getIndexNum())).trim();
+        agetmp =  agetmp.isEmpty() ? "0" : agetmp;
+        try{
+            people.setAge(Integer.parseInt(agetmp.trim()));
+        }catch (Exception e){
+
+            logger.error("apiException:"+e);
+
+        }
+
+
         people.setChurch((String)valueArr.get(PeopleEnum.CHURCH.getIndexNum()));
 
 //        people.setNorth_korean((String)valueArr.get(PeopleEnum.NORTH_KOREAN.getIndexNum()));
 //        people.setLayman((String)valueArr.get(PeopleEnum.LAYMAN.getIndexNum()));
 //        String completePay = (String)valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum());
 
-        String completePay = ((String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum())).isEmpty() ? "0" : (String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum());
 
-        people.setFirst_pay(Integer.parseInt((String)valueArr.get(PeopleEnum.FIRST_PAY.getIndexNum())));
-        people.setSec_pay(Integer.parseInt((String)valueArr.get(PeopleEnum.SEC_PAY.getIndexNum())));
+
+        String firstpay = ((String)valueArr.get(PeopleEnum.FIRST_PAY.getIndexNum())).isEmpty()? "0" :(String)valueArr.get(PeopleEnum.FIRST_PAY.getIndexNum());
+        people.setFirst_pay(Integer.parseInt(firstpay));
+
+        String secpay = ((String)valueArr.get(PeopleEnum.SEC_PAY.getIndexNum())).isEmpty() ? "0" : (String)valueArr.get(PeopleEnum.SEC_PAY.getIndexNum());
+        people.setSec_pay(Integer.parseInt(secpay));
+
+        String completePay = ((String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum())).isEmpty() ? "0" : (String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum());
         people.setComplete_pay(Integer.parseInt(completePay));
+
         people.setPay_dt((String)valueArr.get(PeopleEnum.PAY_DT.getIndexNum()));
         people.setPay_status((String)valueArr.get(PeopleEnum.PAY_STATUS.getIndexNum()));
         people.setReg_dt((String)valueArr.get(PeopleEnum.REG_DT.getIndexNum()));
