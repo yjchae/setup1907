@@ -2,6 +2,7 @@ package com.schana.dao;
 
 import com.schana.entity.PeopleEntity;
 import com.schana.entity.PeopleViewEntity;
+import com.schana.entity.RoomEntity;
 import com.schana.repository.PeopleRepository;
 import com.schana.repository.PeopleViewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class PeopleDao {
         return peopleViewRepository.findByMemberstatusOrderByPeoplekeyAscRoominfoAsc(type);
     }
 
-
     public PeopleViewEntity getPeople(long peopleSeqno) {
         return peopleViewRepository.findBySeqno(peopleSeqno);
     }
@@ -49,5 +49,9 @@ public class PeopleDao {
 
     public PeopleEntity getPeopleMater(long seqno) {
         return peopleRepository.findBySeqno(seqno);
+    }
+
+    public void deletePeople(PeopleEntity peopleEntity){
+        peopleRepository.delete(peopleEntity);
     }
 }

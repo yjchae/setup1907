@@ -92,5 +92,24 @@ public class PeopleController {
         return "success";
     }
 
+    /**
+     * 참석자 삭제
+     * @param request
+     * @param session
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/deletepeople",method = RequestMethod.GET)
+    public String deletePeople(
+            HttpServletRequest request
+            , HttpSession session
+            , Model model)throws Exception{
+
+        String seqno  = request.getParameter("seqno");   //seqno
+
+        return peopleService.deletePeople(seqno);
+    }
 
 }

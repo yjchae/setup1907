@@ -5,6 +5,7 @@ import com.schana.dao.PeopleDao;
 import com.schana.dto.PeopleDto;
 import com.schana.entity.PeopleEntity;
 import com.schana.entity.PeopleViewEntity;
+import com.schana.entity.RoomEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,5 +80,11 @@ public class PeopleService {
             peopleDao.save(oldpeopleinfo);
         }
 
+    }
+
+    public String deletePeople(String seqno) {
+        PeopleEntity roominfo = peopleDao.getPeopleMaster(Long.parseLong(seqno));
+        peopleDao.deletePeople(roominfo);
+        return "success";
     }
 }

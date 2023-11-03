@@ -23,7 +23,8 @@
                 <table class="table table-bordered text-nowrap" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>idx</th>
+<!--                        <th>idx</th>-->
+                        <th>삭제</th>
                         <th>신청인</th>
                         <th>이름</th>
                         <th>번호</th>
@@ -65,7 +66,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="people : ${list}">
-                        <td th:text="${people.seqno}"></td>
+<!--                        <td th:text="${people.seqno}"></td>-->
+                        <td>
+                            <!--                            <input type="checkbox" th:value="${room.seqno}">-->
+                            <a id="deleteRoom" class="btn btn-danger btn-circle btn-sm" th:onclick="deletePeople([[${people.seqno}]])">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
                         <td th:text="${people.peoplekey}"></td>
                         <td th:text="${people.name}"></td>
                         <td th:text="${people.mobile}"></td>
@@ -194,6 +201,29 @@
                  },
                  success : function(data) { // 결과 성공 콜백함수
                      alert("저장 되었습니다.");
+                     location.replace(location.href);
+                 },
+                 error : function(request, status, error) { // 결과 에러 콜백함수
+                     alert("오류");
+                 }
+             })
+         }
+     }
+
+     /**
+      * 참석자 삭제
+      * @param seqno
+      */
+     function deletePeople(seqno){
+         if(confirm("삭제 하시겠습니까?")){
+             $.ajax({
+                 type : 'GET',           // 타입 (get, post, put 등등)
+                 url : '/people/deletepeople',           // 요청할 서버url
+                 data : {
+                     "seqno" : seqno
+                 },
+                 success : function(data) { // 결과 성공 콜백함수
+                     alert("삭제 되었습니다.");
                      location.replace(location.href);
                  },
                  error : function(request, status, error) { // 결과 에러 콜백함수
