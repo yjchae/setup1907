@@ -32,10 +32,15 @@ public class ApiController {
              ModelAndView modelAndView
             , Model model) throws IOException {
 
-        apiService.syncPeople();
+        //TODO: 동기화 오류난 참석자 정보를 화면에 표시 해준다 엑셀을 수정할수 있도록
+        String result = apiService.syncPeople();
+        String message = "";
+        if(result.length()>3){
+            message = " - 동기화 되지 않은 대상자가 있습니다. "+ result;
+        }
 
         HashMap<String,String> paramMap = new HashMap<>();
-        paramMap.put("message","참석자 데이터 연동이 완료되었습니다.");
+        paramMap.put("message","참석자 데이터 연동이 완료되었습니다." + message );
         paramMap.put("href","/dashboard");
 
         model.addAllAttributes(paramMap);

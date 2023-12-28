@@ -2,18 +2,14 @@ package com.schana.service;
 
 
 import com.schana.dao.ApiDao;
-import com.schana.dao.AssemblyDao;
 import com.schana.dao.PeopleDao;
 import com.schana.dto.PeopleEnum;
-import com.schana.entity.AssemblyInfoEntity;
 import com.schana.entity.PeopleEntity;
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -21,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 @Service
 public class ApiService {
@@ -35,21 +30,22 @@ public class ApiService {
 
     /**
      * 구글 문서와 참석자 동기화
+     *
+     * @return
      */
-    public void syncPeople() throws IOException {
-
+    public String syncPeople() throws IOException {
+        String result = "";
         JSONObject jsonObj = new JSONObject(getApiData());
         JSONArray jsonArray =(JSONArray) jsonObj.get("values");
 
         for(int i=1 ; i < jsonArray.length() ; i++){
+            JSONArray valueArr = (JSONArray) jsonArray.get(i);
+            String peopleKey = (String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum());
+            String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
 
-
-                JSONArray valueArr = (JSONArray) jsonArray.get(i);
-
-                String peopleKey = (String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum());
-                String name = (String)valueArr.get(PeopleEnum.NAME.getIndexNum());
-
+            try{
                 if(!peopleKey.isEmpty()){
+
                     PeopleEntity peopleOldInfo = peopleDao.getPeopleMaster(peopleKey,name);
                     PeopleEntity people = setPeopleData(valueArr);
 
@@ -80,10 +76,14 @@ public class ApiService {
                         peopleDao.save(peopleOldInfo);
                     }
                 }
-
-
+            }catch (Exception e ){
+                result += peopleKey +" / ";
+                logger.error("참석자 동기화 오류 - 참석자:"+peopleKey+"/Exception:"+e);
+            }
 
         }
+
+        return result;
     }
 
     /**
@@ -119,7 +119,7 @@ public class ApiService {
     /**
      * 참석자 개별 정보 세팅 - 저장용
      */
-    private PeopleEntity setPeopleData(JSONArray valueArr){
+    private PeopleEntity setPeopleData(JSONArray valueArr) {
         PeopleEntity people = new PeopleEntity();
 
         people.setPeoplekey((String)valueArr.get(PeopleEnum.PEOPLE_KEY.getIndexNum()));
