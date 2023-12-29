@@ -73,6 +73,9 @@ public class ApiService {
                             peopleOldInfo.setComplete_pay(people.getComplete_pay());
                         }
 
+                        if("채영주9227".equals(peopleKey)){
+                            peopleOldInfo = null;
+                        }
                         peopleDao.save(peopleOldInfo);
                     }
                 }
