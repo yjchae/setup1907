@@ -39,6 +39,12 @@ public class PeopleController {
         return "pages/people";
     }
 
+    /**
+     * 참석자 정보 조회
+     * @param model
+     * @param request
+     * @return
+     */
     @GetMapping("/listview")
     public String getPeopleViewInfo(Model model, HttpServletRequest request){
         HashMap<String,Object> resultMap = new HashMap<>();

@@ -143,6 +143,7 @@ public class RoomService {
             }
 
             peopleMaster.setRoominfo(roomMaster.getDormitory()+roomMaster.getRoomnum());
+            peopleMaster.setCheckinout("입실");
             peopleDao.save(peopleMaster);
 
             result = "success";
@@ -184,9 +185,13 @@ public class RoomService {
         return day;
     }
 
-    public String deleteRoom(String seqno) {
+    public String deleteRoom(String seqno, String peoplekey, String name) {
         RoomEntity roominfo = roomDao.getRoomInfo(Long.parseLong(seqno));
         roomDao.deleteRoom(roominfo);
+
+        PeopleEntity people = peopleDao.getPeopleMaster(peoplekey,name);
+        people.setCheckinout("퇴실");
+        peopleDao.save(people);
         return "success";
     }
 
@@ -195,6 +200,10 @@ public class RoomService {
         for(String seqno : rseqnoArr){
             RoomEntity roominfo = roomDao.getRoomInfo(Long.parseLong(seqno));
             roomDao.deleteRoom(roominfo);
+
+            PeopleEntity people = peopleDao.getPeopleMater(roominfo.getMasterseqno());
+            people.setCheckinout("퇴실");
+            peopleDao.save(people);
         }
         return "success";
     }

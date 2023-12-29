@@ -55,5 +55,6 @@ public class PeopleEntity {
     private Integer with_child_woman;
     private String pay_yn;
     private String reg_name;
+    private String checkinout;
 
 }

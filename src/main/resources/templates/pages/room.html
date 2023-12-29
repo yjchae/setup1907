@@ -48,7 +48,7 @@
                         </td>
                         <td>
 <!--                            <input type="checkbox" th:value="${room.seqno}">-->
-                            <a id="deleteRoom" class="btn btn-danger btn-circle btn-sm" th:onclick="deleteRoom([[${room.seqno}]])">
+                            <a id="deleteRoom" class="btn btn-danger btn-circle btn-sm" th:onclick="deleteRoom([[${room.seqno}]],[[${room.peoplekey}]],[[${room.name}]])">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -109,13 +109,15 @@
 <script src="/js/demo/datatables-demo.js"></script>
 <script type="text/javascript" >
     var popup;
-    function deleteRoom(seqno){
+    function deleteRoom(seqno, peoplekey, name){
         if(confirm("방배정을 취소 하시겠습니까?")){
             $.ajax({
                 type : 'GET',           // 타입 (get, post, put 등등)
                 url : '/room/deleteroom',           // 요청할 서버url
                 data : {
-                    "seqno" : seqno
+                    "seqno" : seqno,
+                    "peoplekey" : peoplekey,
+                    "name" : name
                 },
                 success : function(data) { // 결과 성공 콜백함수
                     alert("취소 되었습니다.");

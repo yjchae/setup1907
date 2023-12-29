@@ -28,4 +28,5 @@ public class PeopleViewEntity {
     private String allday_yn;
     private String memberstatus;
     private String day;
+    private String checkinout;
 }

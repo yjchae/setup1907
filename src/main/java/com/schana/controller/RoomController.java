@@ -133,6 +133,7 @@ public class RoomController {
 
     /**
      * 방배정 취소
+     *
      * @param request
      * @param session
      * @param model
@@ -140,15 +141,17 @@ public class RoomController {
      * @throws Exception
      */
     @ResponseBody
-    @RequestMapping(value = "/deleteroom",method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteroom", method = RequestMethod.GET)
     public String deleteRoom(
             HttpServletRequest request
             , HttpSession session
-            , Model model)throws Exception{
+            , Model model) throws Exception {
 
-        String seqno  = request.getParameter("seqno");   //seqno
+        String seqno = request.getParameter("seqno");   //seqno
+        String peoplekey = request.getParameter("peoplekey");
+        String name = request.getParameter("name");
 
-        return roomService.deleteRoom(seqno);
+        return roomService.deleteRoom(seqno, peoplekey, name);
     }
 
     /**
