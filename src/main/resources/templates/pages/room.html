@@ -28,7 +28,7 @@
                                 <span class="icon text-white-50">
                                     <i class="fas fa-trash"></i>
                                 </span>
-                                <span class="text">선택삭제</span>
+                                <span class="text">퇴실</span>
                             </a>
                         </td>
                         <th>구분</th>
@@ -110,7 +110,7 @@
 <script type="text/javascript" >
     var popup;
     function deleteRoom(seqno, peoplekey, name){
-        if(confirm("방배정을 취소 하시겠습니까?")){
+        if(confirm("퇴실 처리 하시겠습니까?")){
             $.ajax({
                 type : 'GET',           // 타입 (get, post, put 등등)
                 url : '/room/deleteroom',           // 요청할 서버url
@@ -120,7 +120,7 @@
                     "name" : name
                 },
                 success : function(data) { // 결과 성공 콜백함수
-                    alert("취소 되었습니다.");
+                    alert("처리 되었습니다.");
                     location.replace(location.href);
                 },
                 error : function(request, status, error) { // 결과 에러 콜백함수
@@ -131,7 +131,7 @@
     }
 
     function multiCancelRoom(){
-        if(confirm("선택한 방을 삭제하시겠습니까?")){
+        if(confirm("퇴실 처리 하시겠습니까?")){
             var roomSeqnoArr = [];
             $("input[name=checkbox]:checked").each(function(){
                 var chk = $(this).val();
@@ -145,7 +145,7 @@
                 //     "roomSeqnoArr" : roomSeqnoArr
                 // },
                 success : function(data) { // 결과 성공 콜백함수
-                    alert("취소 되었습니다.");
+                    alert("처리 되었습니다.");
                     location.replace(location.href);
                 },
                 error : function(request, status, error) { // 결과 에러 콜백함수
