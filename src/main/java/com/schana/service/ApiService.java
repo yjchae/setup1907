@@ -77,7 +77,7 @@ public class ApiService {
                     }
                 }
             }catch (Exception e ){
-                result += peopleKey +" / ";
+                result += peopleKey+"-"+name +" / ";
                 logger.error("참석자 동기화 오류 - 참석자:"+peopleKey+"/Exception:"+e);
             }
 
@@ -160,12 +160,12 @@ public class ApiService {
         people.setReg_dt((String)valueArr.get(PeopleEnum.REG_DT.getIndexNum()));
         people.setPeople_key_sec((String)valueArr.get(PeopleEnum.PEOPLE_KEY_SEC.getIndexNum()));
 
-        String mon = (String)valueArr.get(PeopleEnum.MON.getIndexNum());
-        String tue = (String)valueArr.get(PeopleEnum.TUE.getIndexNum());
-        String wed = (String)valueArr.get(PeopleEnum.WED.getIndexNum());
-        String thu = (String)valueArr.get(PeopleEnum.THU.getIndexNum());
-        String fri = (String)valueArr.get(PeopleEnum.FRI.getIndexNum());
-        String sat = (String)valueArr.get(PeopleEnum.SAT.getIndexNum());
+        String mon = valueArr.getString(PeopleEnum.MON.getIndexNum());
+        String tue = valueArr.getString(PeopleEnum.TUE.getIndexNum());
+        String wed = valueArr.getString(PeopleEnum.WED.getIndexNum());
+        String thu = valueArr.getString(PeopleEnum.THU.getIndexNum());
+        String fri = valueArr.getString(PeopleEnum.FRI.getIndexNum());
+        String sat = valueArr.getString(PeopleEnum.SAT.getIndexNum());
 
         people.setMon(mon);
         people.setTue(tue);
@@ -186,14 +186,27 @@ public class ApiService {
             people.setAllday_yn("부분참석");
         }
 
-        people.setCar((String)valueArr.get(PeopleEnum.CAR.getIndexNum()));
-        people.setBus((String)valueArr.get(PeopleEnum.BUS.getIndexNum()));
-        people.setBicycle((String)valueArr.get(PeopleEnum.BICYCLE.getIndexNum()));
-        people.setHow((String)valueArr.get(PeopleEnum.HOW.getIndexNum()));
-
-        people.setPastor((String)valueArr.get(PeopleEnum.PASTOR.getIndexNum()));
-        people.setNorthkorean((String)valueArr.get(PeopleEnum.NORTH_KOREAN.getIndexNum()));
-        people.setLayman((String)valueArr.get(PeopleEnum.LAYMAN.getIndexNum()));
+        if(valueArr.length() > PeopleEnum.CAR.getIndexNum()){
+            people.setCar(valueArr.getString(PeopleEnum.CAR.getIndexNum()));
+        }
+        if(valueArr.length() > PeopleEnum.BUS.getIndexNum()){
+            people.setBus(valueArr.getString(PeopleEnum.BUS.getIndexNum()));
+        }
+        if(valueArr.length() > PeopleEnum.BICYCLE.getIndexNum()){
+            people.setBicycle(valueArr.getString(PeopleEnum.BICYCLE.getIndexNum()));
+        }
+        if(valueArr.length() > PeopleEnum.HOW.getIndexNum()) {
+            people.setHow(valueArr.getString(PeopleEnum.HOW.getIndexNum()));
+        }
+        if(valueArr.length() > PeopleEnum.PASTOR.getIndexNum()) {
+            people.setPastor(valueArr.getString(PeopleEnum.PASTOR.getIndexNum()));
+        }
+        if(valueArr.length() > PeopleEnum.NORTH_KOREAN.getIndexNum()) {
+            people.setNorthkorean(valueArr.getString(PeopleEnum.NORTH_KOREAN.getIndexNum()));
+        }
+        if(valueArr.length() > PeopleEnum.LAYMAN.getIndexNum()) {
+            people.setLayman(valueArr.getString(PeopleEnum.LAYMAN.getIndexNum()));
+        }
 
         return people;
     }
