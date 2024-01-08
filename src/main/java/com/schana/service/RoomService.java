@@ -162,22 +162,28 @@ public class RoomService {
         String day = "";
         switch (date){
             case "월" :
-                day = "20230710";
+//                day = "20230710";
+                day = "20240108";
                 break;
             case "화" :
-                day = "20230711";
+//                day = "20230711";
+                day = "20240109";
                 break;
             case "수" :
-                day = "20230712";
+//                day = "20230712";
+                day = "20240110";
                 break;
             case "목" :
-                day = "20230713";
+//                day = "20230713";
+                day = "20240111";
                 break;
             case "금" :
-                day = "20230714";
+//                day = "20230714";
+                day = "20240112";
                 break;
             case "토" :
-                day = "20230715";
+//                day = "20230715";
+                day = "20240113";
                 break;
         }
 
