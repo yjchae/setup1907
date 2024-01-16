@@ -197,6 +197,9 @@ public class RoomService {
 
         PeopleEntity people = peopleDao.getPeopleMaster(peoplekey,name);
         people.setCheckinout("퇴실");
+        String now = DateTimeFormatter.ofPattern("MM/dd hh:mm").format(LocalDate.now());
+        people.setCheckoutdt(now);
+
         peopleDao.save(people);
         return "success";
     }

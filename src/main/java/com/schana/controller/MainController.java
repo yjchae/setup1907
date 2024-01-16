@@ -51,8 +51,11 @@ public class MainController {
         AssemblyInfoEntity assemblyinfo = assemblyService.getAssemblyInfo();
         PeopleDto peopleDto = peopleService.getPeopleDayCnt();
 
+        PeopleDto checkin = peopleService.getPeopleCheckinCnt();
+
         model.addAttribute("assemblyinfoDto",assemblyinfo);
         model.addAttribute("peopleDto",peopleDto);
+        model.addAttribute("checkinDto",checkin);
 
 
 

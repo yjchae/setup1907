@@ -23,15 +23,17 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <td>
+                        <th:block th:if="${session.logintype == '관리자'} or ${session.logintype == '탈북민'} or ${session.logintype == '한국성도'}">
+                        <th>
                             <a id="selectMulti" class="btn btn-danger btn-icon-split btn-sm" th:onclick="multiCancelRoom()">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-trash"></i>
                                 </span>
                                 <span class="text">퇴실</span>
                             </a>
-                        </td>
+                        </th>
                         <th>구분</th>
+                        </th:block>
 <!--                        <th>idx</th>-->
                         <th>사람key</th>
                         <th>이름</th>
@@ -43,6 +45,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="room : ${roomlist}">
+                        <th:block th:if="${session.logintype == '관리자'} or ${session.logintype == '탈북민'} or ${session.logintype == '한국성도'}">
                         <td>
                             <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${room.seqno}">
                         </td>
@@ -52,6 +55,7 @@
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
+                        </th:block>
 <!--                        <td th:text="${room.seqno}"></td>-->
                         <td th:text="${room.peoplekey}"></td>
                         <td th:text="${room.name}"></td>

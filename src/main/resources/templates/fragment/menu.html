@@ -39,12 +39,14 @@
             </a>
         </li>
         <!-- Nav Item - Pages Collapse Menu -->
+        <th:block th:if="${session.logintype == '관리자'} or ${session.logintype == '탈북민'} or ${session.logintype == '한국성도'}">
         <li class="nav-item">
             <a class="nav-link" href="/people/listall">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>참석자 정보(상세)</span>
             </a>
         </li>
+        </th:block>
 
 
         <!-- Divider -->

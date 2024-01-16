@@ -2,6 +2,7 @@ package com.schana.service;
 
 
 import com.schana.dao.PeopleDao;
+import com.schana.dao.RoomDao;
 import com.schana.dto.PeopleDto;
 import com.schana.entity.PeopleEntity;
 import com.schana.entity.PeopleViewEntity;
@@ -11,12 +12,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PeopleService {
 
     @Autowired
     private PeopleDao peopleDao;
+
+    @Autowired
+    private RoomDao roomDao;
 
     public List<PeopleEntity> getPeopleList() {
         //TODO : DTO 와 entity 간의 데이터 핸들러 추가
@@ -42,11 +47,38 @@ public class PeopleService {
         return peopleDto;
     }
 
+    /**
+     * 일자별 실제 참석 인원
+     * @return
+     */
+    public PeopleDto getPeopleCheckinCnt() {
+        PeopleDto peopleDto = new PeopleDto();
+        List<PeopleEntity> peoplelist = peopleDao.getPeopleList();
+
+//        List<PeopleEntity> tmplist =
+//                peoplelist.stream().filter(
+//                        _this -> checkinlist.stream().anyMatch(target -> _this.getPeoplekey().equals(target.getPeoplekey()))
+//                ).collect(Collectors.toList());
+
+        List<PeopleEntity> tmplist = peoplelist.stream()
+                .filter(x -> x.getRoominfo() != null)
+                .collect(Collectors.toList());
+
+        peopleDto.setMoncount((int) tmplist.stream().filter(w->w.getMon().contains("TRUE")).count());
+        peopleDto.setTuecount((int) tmplist.stream().filter(w->w.getTue().contains("TRUE")).count());
+        peopleDto.setWedcount((int) tmplist.stream().filter(w->w.getWed().contains("TRUE")).count());
+        peopleDto.setThucount((int) tmplist.stream().filter(w->w.getThu().contains("TRUE")).count());
+        peopleDto.setFricount((int) tmplist.stream().filter(w->w.getFri().contains("TRUE")).count());
+        peopleDto.setSatcount((int) tmplist.stream().filter(w->w.getSat().contains("TRUE")).count());
+
+        return peopleDto;
+    }
+
     public List<PeopleViewEntity> getPeopleViewList(String type){
-        if("관리자".equals(type)){
-            return peopleDao.getPeopleViewList();
-        }else{
+        if("한국성도".equals(type) || "탈북민".equals(type)){
             return peopleDao.getPeopleViewListType(type);
+        }else{
+            return peopleDao.getPeopleViewList();
         }
     }
 

@@ -24,15 +24,17 @@
                 <table class="table table-bordered text-nowrap" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>
-                            <a id="selectMulti" class="btn btn-success btn-icon-split btn-sm" th:onclick="userDetailMulti()">
+                        <th:block th:if="${session.logintype == '관리자'} or ${session.logintype == '탈북민'} or ${session.logintype == '한국성도'}">
+                            <th>
+                                <a id="selectMulti" class="btn btn-success btn-icon-split btn-sm" th:onclick="userDetailMulti()">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-check"></i>
                                 </span>
-<!--                                <span class="text"></span>-->
-                            </a>
-                        </th>
-                        <th>배정</th>
+                                    <!--                                <span class="text"></span>-->
+                                </a>
+                            </th>
+                            <th>배정</th>
+                        </th:block>
 <!--                        <th>idx</th>-->
                         <th>신청인</th>
                         <th>이름</th>
@@ -52,27 +54,31 @@
                     </thead>
                     <tbody>
                     <tr th:each="people : ${list}">
-                        <td>
-                            <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${people.seqno}">
-                        </td>
-                        <td>
-                            <div th:if ="${people.roominfo==null}">
-                                <a id="selectRoom" class="btn btn-success btn-icon-split btn-sm" th:onclick="userDetail([[${people.seqno}]])">
+                        <th:block th:if="${session.logintype == '관리자'} or ${session.logintype == '탈북민'} or ${session.logintype == '한국성도'}">
+                            <td>
+                                <input type="checkbox" name="checkbox" style="transform: scale(2);" th:value="${people.seqno}">
+                            </td>
+                            <td>
+
+                                <div th:if ="${people.roominfo==null}">
+                                    <a id="selectRoom" class="btn btn-success btn-icon-split btn-sm" th:onclick="userDetail([[${people.seqno}]])">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                    <span class="text">방배정</span>
-                                </a>
-                            </div>
-                            <div th:unless="${people.roominfo==null}">
-                                <a id="updateRoom" class="btn btn-secondary btn-icon-split btn-sm" th:onclick="userDetail([[${people.seqno}]])">
+                                        <span class="text">방배정</span>
+                                    </a>
+                                </div>
+                                <div th:unless="${people.roominfo==null}">
+                                    <a id="updateRoom" class="btn btn-secondary btn-icon-split btn-sm" th:onclick="userDetail([[${people.seqno}]])">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                    <span class="text">재배정</span>
-                                </a>
-                            </div>
-                        </td>
+                                        <span class="text">재배정</span>
+                                    </a>
+                                </div>
+
+                            </td>
+                        </th:block>
 <!--                        <td th:text="${people.seqno}"></td>-->
                         <td th:text="${people.peoplekey}"></td>
                         <td th:text="${people.name}"></td>
