@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -197,7 +198,7 @@ public class RoomService {
 
         PeopleEntity people = peopleDao.getPeopleMaster(peoplekey,name);
         people.setCheckinout("퇴실");
-        String now = DateTimeFormatter.ofPattern("MM/dd hh:mm").format(LocalDate.now());
+        String now = DateTimeFormatter.ofPattern("MM/dd HH:mm").format(LocalDateTime.now());
         people.setCheckoutdt(now);
 
         peopleDao.save(people);

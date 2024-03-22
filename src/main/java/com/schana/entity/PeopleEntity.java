@@ -92,7 +92,6 @@ public class PeopleEntity {
     @Value(" ")
     private String checkinout;
     private String syncyn;
-
     private String checkoutdt;
 
 }
