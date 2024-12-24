@@ -21,10 +21,10 @@ public class PeopleDao {
     private PeopleViewRepository peopleViewRepository;
 
     public List<PeopleEntity> getPeopleList(){
-        return peopleRepository.findAll();
+        return peopleRepository.findAll(Sort.by(Sort.Order.asc("peoplekey")));
     }
     public List<PeopleViewEntity> getPeopleViewList(){
-        return peopleViewRepository.findAll(Sort.by(Sort.Order.asc("church"),Sort.Order.asc("peoplekey")));
+        return peopleViewRepository.findAll(Sort.by(Sort.Order.asc("peoplekey")));
     }
 
     public List<PeopleViewEntity> getPeopleViewListType(String type){

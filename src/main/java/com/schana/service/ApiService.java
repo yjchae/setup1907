@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -69,7 +70,7 @@ public class ApiService {
                         peopleOldInfo.setNorthkorean(people.getNorthkorean());
                         peopleOldInfo.setPastor(people.getPastor());
 
-                        if(peopleOldInfo.getComplete_pay()==0){
+                        if(peopleOldInfo.getComplete_pay()==0 || peopleOldInfo.getComplete_pay() == null){
                             peopleOldInfo.setComplete_pay(people.getComplete_pay());
                         }
 
@@ -77,7 +78,7 @@ public class ApiService {
                     }
                 }
             }catch (Exception e ){
-                result += peopleKey+"-"+name +" / ";
+                result += peopleKey+"-"+name +" / "+e;
                 logger.error("참석자 동기화 오류 - 참석자:"+peopleKey+"/Exception:"+e);
             }
 
@@ -147,13 +148,29 @@ public class ApiService {
 
 
         String firstpay = ((String)valueArr.get(PeopleEnum.FIRST_PAY.getIndexNum())).isEmpty()? "0" :(String)valueArr.get(PeopleEnum.FIRST_PAY.getIndexNum());
-        people.setFirst_pay(Integer.parseInt(firstpay));
+        firstpay = firstpay == null ? "0":firstpay;
+        try{
+            people.setFirst_pay(Integer.parseInt(firstpay));
+        }catch(Exception e){
+            people.setFirst_pay(0);
+        }
 
         String secpay = ((String)valueArr.get(PeopleEnum.SEC_PAY.getIndexNum())).isEmpty() ? "0" : (String)valueArr.get(PeopleEnum.SEC_PAY.getIndexNum());
-        people.setSec_pay(Integer.parseInt(secpay));
+        secpay = secpay == null ? "0":secpay;
+        try{
+            people.setSec_pay(Integer.parseInt(secpay));
+        }catch(Exception e){
+            people.setSec_pay(0);
+        }
 
-        String completePay = ((String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum())).isEmpty() ? "0" : (String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum());
-        people.setComplete_pay(Integer.parseInt(completePay));
+        String completePay = ((String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum())).isEmpty()  ? "0" : (String) valueArr.get(PeopleEnum.COMPLETE_PAY.getIndexNum());
+
+        completePay = completePay == null ? "0":completePay;
+        try{
+            people.setComplete_pay(Integer.parseInt(completePay));
+        }catch(Exception e){
+            people.setComplete_pay(0);
+        }
 
         people.setPay_dt((String)valueArr.get(PeopleEnum.PAY_DT.getIndexNum()));
         people.setPay_status((String)valueArr.get(PeopleEnum.PAY_STATUS.getIndexNum()));
